@@ -1,0 +1,11 @@
+{
+  "name": "Stops Away",
+  "short_name": "Stops Away",
+  "description": "A daily Melbourne train station puzzle.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#15181b",
+  "theme_color": "#0b7a75",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

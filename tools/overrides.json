@@ -1,0 +1,383 @@
+{
+ "_about": "Hand-designed diagram (LOTUS-037, Claude Code, 2026-11-19), drawn from geography and the GTFS topology in the transit-diagram tradition, not traced from any published map. Grid units, x east, y south. Every junction and line end is placed here; stations between them are spaced evenly.",
+ "Southern Cross": {
+  "x": -8,
+  "y": 0
+ },
+ "Flinders Street": {
+  "x": 0,
+  "y": 0
+ },
+ "Flagstaff": {
+  "x": -8,
+  "y": -7
+ },
+ "Parliament": {
+  "x": 0,
+  "y": -7
+ },
+ "Jolimont-MCG": {
+  "x": 4,
+  "y": -10
+ },
+ "Richmond": {
+  "x": 4,
+  "y": 3
+ },
+ "North Melbourne": {
+  "x": -12,
+  "y": -4
+ },
+ "Showgrounds": {
+  "x": -15,
+  "y": -7
+ },
+ "Arden": {
+  "x": -10,
+  "y": -10
+ },
+ "Parkville": {
+  "x": -2,
+  "y": -10
+ },
+ "State Library": {
+  "x": -2,
+  "y": -5
+ },
+ "Town Hall": {
+  "x": -2,
+  "y": -2
+ },
+ "Anzac": {
+  "x": -2,
+  "y": 5
+ },
+ "Footscray": {
+  "x": -16,
+  "y": -4
+ },
+ "Sunbury": {
+  "x": -28,
+  "y": -16
+ },
+ "Newport": {
+  "x": -19,
+  "y": -1
+ },
+ "Altona": {
+  "x": -23,
+  "y": 2
+ },
+ "Williamstown": {
+  "x": -19,
+  "y": 6
+ },
+ "Laverton": {
+  "x": -27,
+  "y": -1
+ },
+ "Werribee": {
+  "x": -33,
+  "y": 5
+ },
+ "Craigieburn": {
+  "x": -16,
+  "y": -28
+ },
+ "Upfield": {
+  "x": -9,
+  "y": -27
+ },
+ "Clifton Hill": {
+  "x": 6,
+  "y": -14
+ },
+ "Mernda": {
+  "x": 6,
+  "y": -30
+ },
+ "Hurstbridge": {
+  "x": 22,
+  "y": -26
+ },
+ "Burnley": {
+  "x": 8,
+  "y": 3
+ },
+ "Camberwell": {
+  "x": 12,
+  "y": -1
+ },
+ "Ringwood": {
+  "x": 24,
+  "y": -1
+ },
+ "Lilydale": {
+  "x": 30,
+  "y": -7
+ },
+ "Belgrave": {
+  "x": 30,
+  "y": 5
+ },
+ "Alamein": {
+  "x": 16,
+  "y": 3
+ },
+ "Glen Waverley": {
+  "x": 22,
+  "y": 11
+ },
+ "South Yarra": {
+  "x": 4,
+  "y": 7
+ },
+ "Malvern": {
+  "x": 8,
+  "y": 9
+ },
+ "Caulfield": {
+  "x": 10,
+  "y": 11
+ },
+ "Sandringham": {
+  "x": 4,
+  "y": 24
+ },
+ "Dandenong": {
+  "x": 22,
+  "y": 23
+ },
+ "East Pakenham": {
+  "x": 32,
+  "y": 23
+ },
+ "Cranbourne": {
+  "x": 24,
+  "y": 27
+ },
+ "Frankston": {
+  "x": 10,
+  "y": 30
+ },
+ "Stony Point": {
+  "x": 16,
+  "y": 36
+ },
+ "_areas": {
+  "_about": "Diagram background, grid units like the stations: a simplified Port Phillip Bay, drawn by hand to sit between the Werribee, Williamstown, Sandringham and Frankston lines.",
+  "bay": [
+   [
+    -120,
+    10
+   ],
+   [
+    -30,
+    7
+   ],
+   [
+    -24,
+    6
+   ],
+   [
+    -21,
+    8
+   ],
+   [
+    -17,
+    9
+   ],
+   [
+    -10,
+    8.5
+   ],
+   [
+    -4,
+    8.5
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    2.5,
+    25
+   ],
+   [
+    5,
+    26.5
+   ],
+   [
+    8.5,
+    27
+   ],
+   [
+    8.5,
+    33
+   ],
+   [
+    11,
+    39
+   ],
+   [
+    11,
+    140
+   ],
+   [
+    -120,
+    140
+   ]
+  ],
+  "bay_label": [
+   [
+    -13,
+    17
+   ]
+  ],
+  "westernport": [
+   [
+    19,
+    33
+   ],
+   [
+    26,
+    31
+   ],
+   [
+    33,
+    34
+   ],
+   [
+    36,
+    42
+   ],
+   [
+    34,
+    60
+   ],
+   [
+    19,
+    60
+   ],
+   [
+    18,
+    40
+   ]
+  ],
+  "yarra": [
+   [
+    -16,
+    9
+   ],
+   [
+    -12,
+    5
+   ],
+   [
+    -9,
+    1.6
+   ],
+   [
+    -4,
+    1.2
+   ],
+   [
+    1,
+    1.2
+   ],
+   [
+    3,
+    4.5
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    9,
+    4.6
+   ],
+   [
+    11,
+    1
+   ],
+   [
+    12,
+    -4
+   ],
+   [
+    14,
+    -8
+   ],
+   [
+    18,
+    -14
+   ],
+   [
+    24,
+    -18
+   ]
+  ],
+  "yarra_label": [
+   [
+    14.5,
+    -6.5
+   ]
+  ]
+ },
+ "_regional": {
+  "_about": "V/Line junctions and line ends for the diagram, in the metro diagram's grid units; drawn by hand from geography, fanning out beyond the metro network.",
+  "Deer Park": {
+   "x": -30,
+   "y": -8
+  },
+  "Ballarat": {
+   "x": -46,
+   "y": -14
+  },
+  "Ararat": {
+   "x": -58,
+   "y": -20
+  },
+  "Maryborough": {
+   "x": -52,
+   "y": -28
+  },
+  "Warrnambool": {
+   "x": -64,
+   "y": 6
+  },
+  "Bendigo": {
+   "x": -38,
+   "y": -38
+  },
+  "Echuca": {
+   "x": -38,
+   "y": -50
+  },
+  "Swan Hill": {
+   "x": -52,
+   "y": -50
+  },
+  "Seymour": {
+   "x": -10,
+   "y": -42
+  },
+  "Shepparton": {
+   "x": 2,
+   "y": -54
+  },
+  "Albury": {
+   "x": 16,
+   "y": -54
+  },
+  "Nar Nar Goon": {
+   "x": 38,
+   "y": 23
+  },
+  "Bairnsdale": {
+   "x": 66,
+   "y": 18
+  }
+ }
+}

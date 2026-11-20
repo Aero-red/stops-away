@@ -1,0 +1,1135 @@
+{
+ "_about": "LOTUS-037 H2. Facts by Hermes (2026-11-19), one per station, each from the English Wikipedia article at 'source'. Six name-origin facts were reworded by Claude Code (CFD, GAR, PAR, PAT, RIP, TOR) so no Wikipedia text is quoted. Owner: Hermes.",
+ "facts": {
+  "vic:rail:ACF": {
+   "fact": "Aircraft station opened in 1925.",
+   "source": "https://en.wikipedia.org/wiki/Aircraft_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ALB": {
+   "fact": "Albion station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Albion_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ALM": {
+   "fact": "Alamein station opened in 1948.",
+   "source": "https://en.wikipedia.org/wiki/Alamein_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ALP": {
+   "fact": "Alphington station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Alphington_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ALT": {
+   "fact": "Altona station opened in 1917.",
+   "source": "https://en.wikipedia.org/wiki/Altona_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ARM": {
+   "fact": "Armadale station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Armadale_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ARN": {
+   "fact": "Arden station opened in 2025.",
+   "source": "https://en.wikipedia.org/wiki/Arden_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ASH": {
+   "fact": "Ashburton station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Ashburton_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ASP": {
+   "fact": "Aspendale station opened in 1891.",
+   "source": "https://en.wikipedia.org/wiki/Aspendale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ASV": {
+   "fact": "Ascot Vale station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Ascot_Vale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ASY": {
+   "fact": "Anstey station opened in 1926.",
+   "source": "https://en.wikipedia.org/wiki/Anstey_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:AUB": {
+   "fact": "Auburn station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Auburn_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:AZC": {
+   "fact": "Anzac station opened in 2025.",
+   "source": "https://en.wikipedia.org/wiki/Anzac_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BAT": {
+   "fact": "Batman station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Batman_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BAY": {
+   "fact": "Bayswater station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Bayswater_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BBH": {
+   "fact": "Brighton Beach station opened in 1861.",
+   "source": "https://en.wikipedia.org/wiki/Brighton_Beach_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BBN": {
+   "fact": "Blackburn station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Blackburn_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BCV": {
+   "fact": "Balaclava station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Balaclava_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BEG": {
+   "fact": "Belgrave station opened in 1900.",
+   "source": "https://en.wikipedia.org/wiki/Belgrave_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BEL": {
+   "fact": "Bell station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Bell_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BEN": {
+   "fact": "Bentleigh station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Bentleigh_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BEW": {
+   "fact": "Berwick station opened in 1877.",
+   "source": "https://en.wikipedia.org/wiki/Berwick_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BFD": {
+   "fact": "Beaconsfield station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Beaconsfield_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BIT": {
+   "fact": "Bittern station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Bittern_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BLY": {
+   "fact": "Burnley station opened in 1880.",
+   "source": "https://en.wikipedia.org/wiki/Burnley_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BMS": {
+   "fact": "Broadmeadows station opened in 1873.",
+   "source": "https://en.wikipedia.org/wiki/Broadmeadows_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BON": {
+   "fact": "Bonbeach station opened in 1926.",
+   "source": "https://en.wikipedia.org/wiki/Bonbeach_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BOR": {
+   "fact": "Boronia station opened in 1920.",
+   "source": "https://en.wikipedia.org/wiki/Boronia_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BOX": {
+   "fact": "Box Hill station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Box_Hill_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BWD": {
+   "fact": "Burwood station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Burwood_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BWK": {
+   "fact": "Brunswick station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/Brunswick_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:BXR": {
+   "fact": "Baxter station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Baxter_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CAM": {
+   "fact": "Camberwell station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Camberwell_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CAR": {
+   "fact": "Carrum station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Carrum_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CBE": {
+   "fact": "Cranbourne station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Cranbourne_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CBY": {
+   "fact": "Canterbury station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Canterbury_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CDA": {
+   "fact": "Cardinia Road station opened in 2012.",
+   "source": "https://en.wikipedia.org/wiki/Cardinia_Road_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CDN": {
+   "fact": "Croydon station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Croydon_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CFD": {
+   "fact": "Caulfield station is named after the suburb of Caulfield, which lies to its south-west.",
+   "source": "https://en.wikipedia.org/wiki/Caulfield_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CGB": {
+   "fact": "Craigieburn station opened in 1872.",
+   "source": "https://en.wikipedia.org/wiki/Craigieburn_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CHL": {
+   "fact": "Clifton Hill station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Clifton_Hill_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CHM": {
+   "fact": "Chatham station opened in 1927.",
+   "source": "https://en.wikipedia.org/wiki/Chatham_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CLA": {
+   "fact": "Clayton station opened in 1880.",
+   "source": "https://en.wikipedia.org/wiki/Clayton_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CLO": {
+   "fact": "Coolaroo station opened in 2010.",
+   "source": "https://en.wikipedia.org/wiki/Coolaroo_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CNE": {
+   "fact": "Carnegie station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Carnegie_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:COB": {
+   "fact": "Coburg station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/Coburg_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CPT": {
+   "fact": "Crib Point station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Crib_Point_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CSA": {
+   "fact": "Chelsea station opened in 1907.",
+   "source": "https://en.wikipedia.org/wiki/Chelsea_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CTM": {
+   "fact": "Cheltenham station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Cheltenham_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CWD": {
+   "fact": "Collingwood station opened in 1901.",
+   "source": "https://en.wikipedia.org/wiki/Collingwood_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:CXT": {
+   "fact": "Croxton station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Croxton_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DBN": {
+   "fact": "Darebin station opened in 1922.",
+   "source": "https://en.wikipedia.org/wiki/Darebin_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DCK": {
+   "fact": "Diamond Creek station opened in 1912.",
+   "source": "https://en.wikipedia.org/wiki/Diamond_Creek_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DEN": {
+   "fact": "Dennis station opened in 1924.",
+   "source": "https://en.wikipedia.org/wiki/Dennis_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DLG": {
+   "fact": "Darling station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Darling_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DNG": {
+   "fact": "Dandenong station opened in 1877.",
+   "source": "https://en.wikipedia.org/wiki/Dandenong_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:DRT": {
+   "fact": "Diggers Rest station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Diggers_Rest_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:EAG": {
+   "fact": "Eaglemont station opened in 1926.",
+   "source": "https://en.wikipedia.org/wiki/Eaglemont_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ECM": {
+   "fact": "East Camberwell station opened in 1900.",
+   "source": "https://en.wikipedia.org/wiki/East_Camberwell_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:EDI": {
+   "fact": "Edithvale station opened in 1919.",
+   "source": "https://en.wikipedia.org/wiki/Edithvale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ELS": {
+   "fact": "Elsternwick station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Elsternwick_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ELT": {
+   "fact": "Eltham station opened in 1902.",
+   "source": "https://en.wikipedia.org/wiki/Eltham_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:EMV": {
+   "fact": "East Malvern station opened in 1929.",
+   "source": "https://en.wikipedia.org/wiki/East_Malvern_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:EPH": {
+   "fact": "East Pakenham station opened in 2024.",
+   "source": "https://en.wikipedia.org/wiki/East_Pakenham_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:EPP": {
+   "fact": "Epping station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Epping_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ERM": {
+   "fact": "East Richmond station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/East_Richmond_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ESD": {
+   "fact": "Essendon station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Essendon_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FAK": {
+   "fact": "Fawkner station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Fawkner_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FBD": {
+   "fact": "Flemington Bridge station opened in 1885.",
+   "source": "https://en.wikipedia.org/wiki/Flemington_Bridge_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FFD": {
+   "fact": "Fairfield station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Fairfield_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FGS": {
+   "fact": "Flagstaff station opened in 1985.",
+   "source": "https://en.wikipedia.org/wiki/Flagstaff_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FKN": {
+   "fact": "Frankston station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Frankston_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FSS": {
+   "fact": "Flinders Street station opened in 1854.",
+   "source": "https://en.wikipedia.org/wiki/Flinders_Street_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FSY": {
+   "fact": "Footscray station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Footscray_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:FTG": {
+   "fact": "Ferntree Gully station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Ferntree_Gully_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GAR": {
+   "fact": "Gardiner opened on 24 March 1890 and is named after John Gardiner, a pastoralist who settled nearby in 1836.",
+   "source": "https://en.wikipedia.org/wiki/Gardiner_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GBV": {
+   "fact": "Glenbervie station opened in 1922.",
+   "source": "https://en.wikipedia.org/wiki/Glenbervie_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GFE": {
+   "fact": "Glenferrie station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Glenferrie_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GHY": {
+   "fact": "Glen Huntly station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Glen_Huntly_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GIN": {
+   "fact": "Ginifer station opened in 1982.",
+   "source": "https://en.wikipedia.org/wiki/Ginifer_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GIR": {
+   "fact": "Glen Iris station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Glen_Iris_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GOW": {
+   "fact": "Gowrie station opened in 1965.",
+   "source": "https://en.wikipedia.org/wiki/Gowrie_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GRN": {
+   "fact": "Greensborough station opened in 1902.",
+   "source": "https://en.wikipedia.org/wiki/Greensborough_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GRY": {
+   "fact": "Glenroy station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/Glenroy_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GVE": {
+   "fact": "Gardenvale station opened in 1906.",
+   "source": "https://en.wikipedia.org/wiki/Gardenvale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:GWY": {
+   "fact": "Glen Waverley station opened in 1930.",
+   "source": "https://en.wikipedia.org/wiki/Glen_Waverley_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HAM": {
+   "fact": "Hampton station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/Hampton_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HAW": {
+   "fact": "Hawthorn station opened in 1861.",
+   "source": "https://en.wikipedia.org/wiki/Hawthorn_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HBE": {
+   "fact": "Hurstbridge station opened in 1912.",
+   "source": "https://en.wikipedia.org/wiki/Hurstbridge_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HCG": {
+   "fact": "Hoppers Crossing station opened in 1970.",
+   "source": "https://en.wikipedia.org/wiki/Hoppers_Crossing_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HDB": {
+   "fact": "Heidelberg station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Heidelberg_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HEY": {
+   "fact": "Heyington station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Heyington_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HIG": {
+   "fact": "Highett station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Highett_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HKN": {
+   "fact": "Hawksburn station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Hawksburn_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HLM": {
+   "fact": "Hallam station opened in 1880.",
+   "source": "https://en.wikipedia.org/wiki/Hallam_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HMT": {
+   "fact": "Heathmont station opened in 1926.",
+   "source": "https://en.wikipedia.org/wiki/Heathmont_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HOL": {
+   "fact": "Holmesglen station opened in 1930.",
+   "source": "https://en.wikipedia.org/wiki/Holmesglen_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HST": {
+   "fact": "Hastings station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Hastings_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HTD": {
+   "fact": "Heatherdale station opened in 1958.",
+   "source": "https://en.wikipedia.org/wiki/Heatherdale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HUG": {
+   "fact": "Hughesdale station opened in 1925.",
+   "source": "https://en.wikipedia.org/wiki/Hughesdale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HUN": {
+   "fact": "Huntingdale station opened in 1927.",
+   "source": "https://en.wikipedia.org/wiki/Huntingdale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HWL": {
+   "fact": "Hartwell station opened in 1906.",
+   "source": "https://en.wikipedia.org/wiki/Hartwell_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:HWS": {
+   "fact": "Hawkstowe station opened in 2018.",
+   "source": "https://en.wikipedia.org/wiki/Hawkstowe_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:IVA": {
+   "fact": "Ivanhoe station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Ivanhoe_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:JAC": {
+   "fact": "Jacana station opened in 1959.",
+   "source": "https://en.wikipedia.org/wiki/Jacana_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:JLI": {
+   "fact": "Jolimont-MCG station opened in 1901.",
+   "source": "https://en.wikipedia.org/wiki/Jolimont_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:JOR": {
+   "fact": "Jordanville station opened in 1930.",
+   "source": "https://en.wikipedia.org/wiki/Jordanville_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:JWL": {
+   "fact": "Jewell station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/Jewell_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:KAN": {
+   "fact": "Kananook station opened in 1975.",
+   "source": "https://en.wikipedia.org/wiki/Kananook_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:KEN": {
+   "fact": "Kensington station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Kensington_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:KPK": {
+   "fact": "Keon Park station opened in 1929.",
+   "source": "https://en.wikipedia.org/wiki/Keon_Park_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:KPL": {
+   "fact": "Keilor Plains station opened in 2002.",
+   "source": "https://en.wikipedia.org/wiki/Keilor_Plains_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:KYG": {
+   "fact": "Kooyong station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Kooyong_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LAB": {
+   "fact": "Laburnum station opened in 1958.",
+   "source": "https://en.wikipedia.org/wiki/Laburnum_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LAL": {
+   "fact": "Lalor station opened in 1949.",
+   "source": "https://en.wikipedia.org/wiki/Lalor_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LAV": {
+   "fact": "Laverton station opened in 1886.",
+   "source": "https://en.wikipedia.org/wiki/Laverton_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LBK": {
+   "fact": "Lynbrook station opened in 2012.",
+   "source": "https://en.wikipedia.org/wiki/Lynbrook_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LIL": {
+   "fact": "Lilydale station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Lilydale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:LWA": {
+   "fact": "Leawarra station opened in 1959.",
+   "source": "https://en.wikipedia.org/wiki/Leawarra_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MAC": {
+   "fact": "Macaulay station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/Macaulay_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MAL": {
+   "fact": "Malvern station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Malvern_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MBN": {
+   "fact": "Middle Brighton station opened in 1861.",
+   "source": "https://en.wikipedia.org/wiki/Middle_Brighton_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MCD": {
+   "fact": "Macleod station opened in 1911.",
+   "source": "https://en.wikipedia.org/wiki/Macleod_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MCE": {
+   "fact": "Melbourne Central station opened in 1981.",
+   "source": "https://en.wikipedia.org/wiki/Melbourne_Central_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MCH": {
+   "fact": "Mitcham station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Mitcham_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MCK": {
+   "fact": "McKinnon station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/McKinnon_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MDD": {
+   "fact": "Mernda station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Mernda_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MEN": {
+   "fact": "Mentone station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Mentone_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MER": {
+   "fact": "Merri station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Merri_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MFY": {
+   "fact": "Middle Footscray station opened in 1906.",
+   "source": "https://en.wikipedia.org/wiki/Middle_Footscray_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MLD": {
+   "fact": "Moreland station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/Moreland_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MLK": {
+   "fact": "Mooroolbark station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/Mooroolbark_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MMR": {
+   "fact": "Middle Gorge station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Middle_Gorge_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MMY": {
+   "fact": "Montmorency station opened in 1923.",
+   "source": "https://en.wikipedia.org/wiki/Montmorency_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MOR": {
+   "fact": "Mordialloc station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Mordialloc_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MPD": {
+   "fact": "Moonee Ponds station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Moonee_Ponds_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MPK": {
+   "fact": "Merinda Park station opened in 1995.",
+   "source": "https://en.wikipedia.org/wiki/Merinda_Park_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MRB": {
+   "fact": "Murrumbeena station opened in 1879.",
+   "source": "https://en.wikipedia.org/wiki/Murrumbeena_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MRN": {
+   "fact": "Moorabbin station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Moorabbin_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MRO": {
+   "fact": "Morradoo station opened in 1960.",
+   "source": "https://en.wikipedia.org/wiki/Morradoo_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MWY": {
+   "fact": "Mount Waverley station opened in 1930.",
+   "source": "https://en.wikipedia.org/wiki/Mount_Waverley_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:MYN": {
+   "fact": "Merlynston station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Merlynston_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NBN": {
+   "fact": "North Brighton station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/North_Brighton_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NCE": {
+   "fact": "Northcote station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Northcote_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NKT": {
+   "fact": "Newmarket station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Newmarket_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NME": {
+   "fact": "North Melbourne station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/North_Melbourne_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NPK": {
+   "fact": "Noble Park station opened in 1913.",
+   "source": "https://en.wikipedia.org/wiki/Noble_Park_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NPT": {
+   "fact": "Newport station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Newport_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NRM": {
+   "fact": "North Richmond station opened in 1901.",
+   "source": "https://en.wikipedia.org/wiki/North_Richmond_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NWA": {
+   "fact": "Narre Warren station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Narre_Warren_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NWG": {
+   "fact": "Nunawading station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Nunawading_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:NWN": {
+   "fact": "North Williamstown station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/North_Williamstown_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:OAK": {
+   "fact": "Oakleigh station opened in 1877.",
+   "source": "https://en.wikipedia.org/wiki/Oakleigh_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:OFC": {
+   "fact": "Officer station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Officer_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:OKP": {
+   "fact": "Oak Park station opened in 1956.",
+   "source": "https://en.wikipedia.org/wiki/Oak_Park_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:OMD": {
+   "fact": "Ormond station opened in 1881.",
+   "source": "https://en.wikipedia.org/wiki/Ormond_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PAR": {
+   "fact": "Parliament opened in 1983 and is named after Parliament House, just east of the station.",
+   "source": "https://en.wikipedia.org/wiki/Parliament_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PAT": {
+   "fact": "Patterson is named after Patterson Road, just south of the station; building began in 1958.",
+   "source": "https://en.wikipedia.org/wiki/Patterson_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PKD": {
+   "fact": "Parkdale station opened in 1919.",
+   "source": "https://en.wikipedia.org/wiki/Parkdale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PKM": {
+   "fact": "Pakenham station opened in 1877.",
+   "source": "https://en.wikipedia.org/wiki/Pakenham_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PKV": {
+   "fact": "Parkville station opened in 2025.",
+   "source": "https://en.wikipedia.org/wiki/Parkville_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PRA": {
+   "fact": "Prahran station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/Prahran_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PRE": {
+   "fact": "Preston station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Preston_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:PVL": {
+   "fact": "Pascoe Vale station opened in 1885.",
+   "source": "https://en.wikipedia.org/wiki/Pascoe_Vale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:REG": {
+   "fact": "Regent station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Regent_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RES": {
+   "fact": "Reservoir station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Reservoir_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RIP": {
+   "fact": "Ripponlea station is named after the suburb of Ripponlea, which it serves.",
+   "source": "https://en.wikipedia.org/wiki/Ripponlea_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RIV": {
+   "fact": "Riversdale station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Riversdale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RMD": {
+   "fact": "Richmond station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Richmond_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:ROS": {
+   "fact": "Rosanna station opened in 1927.",
+   "source": "https://en.wikipedia.org/wiki/Rosanna_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RPK": {
+   "fact": "Royal Park station opened in 1884.",
+   "source": "https://en.wikipedia.org/wiki/Royal_Park_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RUS": {
+   "fact": "Rushall station opened in 1927.",
+   "source": "https://en.wikipedia.org/wiki/Rushall_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RUT": {
+   "fact": "Ruthven station opened in 1963.",
+   "source": "https://en.wikipedia.org/wiki/Ruthven_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RWD": {
+   "fact": "Ringwood station opened in 1882.",
+   "source": "https://en.wikipedia.org/wiki/Ringwood_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RWE": {
+   "fact": "Ringwood East station opened in 1925.",
+   "source": "https://en.wikipedia.org/wiki/Ringwood_East_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:RXP": {
+   "fact": "Roxburgh Park station opened in 2007.",
+   "source": "https://en.wikipedia.org/wiki/Roxburgh_Park_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SAB": {
+   "fact": "St Albans station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/St_Albans_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SEA": {
+   "fact": "Seaford station opened in 1913.",
+   "source": "https://en.wikipedia.org/wiki/Seaford_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SEN": {
+   "fact": "Seddon station opened in 1906.",
+   "source": "https://en.wikipedia.org/wiki/Seddon_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SGS": {
+   "fact": "Showgrounds station opened in 1883.",
+   "source": "https://en.wikipedia.org/wiki/Showgrounds_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SHE": {
+   "fact": "Seaholme station opened in 1920.",
+   "source": "https://en.wikipedia.org/wiki/Seaholme_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SHM": {
+   "fact": "Sandringham station opened in 1887.",
+   "source": "https://en.wikipedia.org/wiki/Sandringham_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SKN": {
+   "fact": "South Kensington station opened in 1891.",
+   "source": "https://en.wikipedia.org/wiki/South_Kensington_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SME": {
+   "fact": "Strathmore station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Strathmore_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SMG": {
+   "fact": "South Morang station opened in 2012.",
+   "source": "https://en.wikipedia.org/wiki/South_Morang_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SNP": {
+   "fact": "Sandown Park station opened in 1965.",
+   "source": "https://en.wikipedia.org/wiki/Sandown_Park_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SOU": {
+   "fact": "Southland station opened in 2017.",
+   "source": "https://en.wikipedia.org/wiki/Southland_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SPG": {
+   "fact": "Springvale station opened in 1880.",
+   "source": "https://en.wikipedia.org/wiki/Springvale_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SPT": {
+   "fact": "Spotswood station opened in 1878.",
+   "source": "https://en.wikipedia.org/wiki/Spotswood_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SSS": {
+   "fact": "Southern Cross station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Southern_Cross_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:STL": {
+   "fact": "State Library station opened in 2025.",
+   "source": "https://en.wikipedia.org/wiki/State_Library_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:STY": {
+   "fact": "Stony Point station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Stony_Point_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SUN": {
+   "fact": "Sunshine station opened in 1885.",
+   "source": "https://en.wikipedia.org/wiki/Sunshine_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SUY": {
+   "fact": "Sunbury station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Sunbury_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SVE": {
+   "fact": "Somerville station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Somerville_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SYN": {
+   "fact": "Syndal station opened in 1930.",
+   "source": "https://en.wikipedia.org/wiki/Syndal_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:SYR": {
+   "fact": "South Yarra station opened in 1860.",
+   "source": "https://en.wikipedia.org/wiki/South_Yarra_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TAB": {
+   "fact": "Tyabb station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Tyabb_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TBY": {
+   "fact": "Thornbury station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Thornbury_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TCM": {
+   "fact": "Tecoma station opened in 1924.",
+   "source": "https://en.wikipedia.org/wiki/Tecoma_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TGA": {
+   "fact": "Tooronga station opened in 1890.",
+   "source": "https://en.wikipedia.org/wiki/Tooronga_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:THL": {
+   "fact": "Town Hall station opened in 2025.",
+   "source": "https://en.wikipedia.org/wiki/Town_Hall_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TOR": {
+   "fact": "Toorak station is named after the suburb of Toorak, which lies to its north.",
+   "source": "https://en.wikipedia.org/wiki/Toorak_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TOT": {
+   "fact": "Tottenham station opened in 1891.",
+   "source": "https://en.wikipedia.org/wiki/Tottenham_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:TSN": {
+   "fact": "Thomastown station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Thomastown_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:UFD": {
+   "fact": "Upfield station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Upfield_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:UFG": {
+   "fact": "Upper Ferntree Gully station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Upper_Ferntree_Gully_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:UNN": {
+   "fact": "Union station opened in 2023.",
+   "source": "https://en.wikipedia.org/wiki/Union_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:UPW": {
+   "fact": "Upwey station opened in 1901.",
+   "source": "https://en.wikipedia.org/wiki/Upwey_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:VPK": {
+   "fact": "Victoria Park station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Victoria_Park_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WAT": {
+   "fact": "Watsonia station opened in 1924.",
+   "source": "https://en.wikipedia.org/wiki/Watsonia_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WBH": {
+   "fact": "Williamstown Beach station opened in 1889.",
+   "source": "https://en.wikipedia.org/wiki/Williamstown_Beach_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WER": {
+   "fact": "Werribee station opened in 1857.",
+   "source": "https://en.wikipedia.org/wiki/Werribee_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WFY": {
+   "fact": "West Footscray station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/West_Footscray_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WGS": {
+   "fact": "Watergardens station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Watergardens_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WIL": {
+   "fact": "Williamstown station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Williamstown_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WIN": {
+   "fact": "Windsor station opened in 1859.",
+   "source": "https://en.wikipedia.org/wiki/Windsor_railway_station,_Melbourne",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WLD": {
+   "fact": "Williams Landing station opened in 2013.",
+   "source": "https://en.wikipedia.org/wiki/Williams_Landing_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WRM": {
+   "fact": "West Richmond station opened in 1901.",
+   "source": "https://en.wikipedia.org/wiki/West_Richmond_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WSN": {
+   "fact": "Willison station opened in 1908.",
+   "source": "https://en.wikipedia.org/wiki/Willison_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WTG": {
+   "fact": "Westgarth station opened in 1888.",
+   "source": "https://en.wikipedia.org/wiki/Westgarth_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WTL": {
+   "fact": "Westall station opened in 1951.",
+   "source": "https://en.wikipedia.org/wiki/Westall_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WTO": {
+   "fact": "Westona station opened in 1985.",
+   "source": "https://en.wikipedia.org/wiki/Westona_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:WTT": {
+   "fact": "Wattle Glen station opened in 1912.",
+   "source": "https://en.wikipedia.org/wiki/Wattle_Glen_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:YMN": {
+   "fact": "Yarraman station opened in 1976.",
+   "source": "https://en.wikipedia.org/wiki/Yarraman_railway_station",
+   "checked": "2026-11-19"
+  },
+  "vic:rail:YVE": {
+   "fact": "Yarraville station opened in 1871.",
+   "source": "https://en.wikipedia.org/wiki/Yarraville_railway_station",
+   "checked": "2026-11-19"
+  }
+ }
+}

@@ -1,0 +1,1135 @@
+{
+ "_about": "LOTUS-037 H2 Part B, by Hermes 2026-11-19. zone: Metro Trains station pages (metrotrains.com.au/stations/<slug>/), cross-checked against Wikipedia's 'List of Metro Trains Melbourne railway stations' (223/223 agree; Aspendale 2 per Metro; Showgrounds and Town Hall from Wikipedia only). suburb (gazetted locality) and lga: Vicmap Admin point query at the GTFS lat/lon, (c) State of Victoria (Department of Transport and Planning), CC BY 4.0.",
+ "stations": {
+  "vic:rail:ACF": {
+   "zone": "2",
+   "suburb": "Laverton",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:ALB": {
+   "zone": "1/2",
+   "suburb": "Albion",
+   "lga": "Brimbank"
+  },
+  "vic:rail:ALM": {
+   "zone": "1",
+   "suburb": "Ashburton",
+   "lga": "Boroondara"
+  },
+  "vic:rail:ALP": {
+   "zone": "1",
+   "suburb": "Alphington",
+   "lga": "Darebin"
+  },
+  "vic:rail:ALT": {
+   "zone": "1/2",
+   "suburb": "Altona",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:ARM": {
+   "zone": "1",
+   "suburb": "Armadale",
+   "lga": "Stonnington"
+  },
+  "vic:rail:ARN": {
+   "zone": "1",
+   "suburb": "North Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:ASH": {
+   "zone": "1",
+   "suburb": "Ashburton",
+   "lga": "Boroondara"
+  },
+  "vic:rail:ASP": {
+   "zone": "2",
+   "suburb": "Aspendale",
+   "lga": "Kingston"
+  },
+  "vic:rail:ASV": {
+   "zone": "1",
+   "suburb": "Ascot Vale",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:ASY": {
+   "zone": "1",
+   "suburb": "Brunswick",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:AUB": {
+   "zone": "1",
+   "suburb": "Hawthorn East",
+   "lga": "Boroondara"
+  },
+  "vic:rail:AZC": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Port Phillip"
+  },
+  "vic:rail:BAT": {
+   "zone": "1/2",
+   "suburb": "Coburg North",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:BAY": {
+   "zone": "2",
+   "suburb": "Bayswater",
+   "lga": "Knox"
+  },
+  "vic:rail:BBH": {
+   "zone": "1/2",
+   "suburb": "Brighton",
+   "lga": "Bayside"
+  },
+  "vic:rail:BBN": {
+   "zone": "2",
+   "suburb": "Blackburn",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:BCV": {
+   "zone": "1",
+   "suburb": "Balaclava",
+   "lga": "Port Phillip"
+  },
+  "vic:rail:BEG": {
+   "zone": "2",
+   "suburb": "Belgrave",
+   "lga": "Yarra Ranges"
+  },
+  "vic:rail:BEL": {
+   "zone": "1",
+   "suburb": "Preston",
+   "lga": "Darebin"
+  },
+  "vic:rail:BEN": {
+   "zone": "1/2",
+   "suburb": "Bentleigh",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:BEW": {
+   "zone": "2",
+   "suburb": "Berwick",
+   "lga": "Casey"
+  },
+  "vic:rail:BFD": {
+   "zone": "2",
+   "suburb": "Beaconsfield",
+   "lga": "Cardinia"
+  },
+  "vic:rail:BIT": {
+   "zone": "2",
+   "suburb": "Bittern",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:BLY": {
+   "zone": "1",
+   "suburb": "Burnley",
+   "lga": "Yarra"
+  },
+  "vic:rail:BMS": {
+   "zone": "2",
+   "suburb": "Broadmeadows",
+   "lga": "Hume"
+  },
+  "vic:rail:BON": {
+   "zone": "2",
+   "suburb": "Bonbeach",
+   "lga": "Kingston"
+  },
+  "vic:rail:BOR": {
+   "zone": "2",
+   "suburb": "Boronia",
+   "lga": "Knox"
+  },
+  "vic:rail:BOX": {
+   "zone": "2",
+   "suburb": "Box Hill",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:BWD": {
+   "zone": "1",
+   "suburb": "Glen Iris",
+   "lga": "Boroondara"
+  },
+  "vic:rail:BWK": {
+   "zone": "1",
+   "suburb": "Brunswick",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:BXR": {
+   "zone": "2",
+   "suburb": "Baxter",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:CAM": {
+   "zone": "1",
+   "suburb": "Camberwell",
+   "lga": "Boroondara"
+  },
+  "vic:rail:CAR": {
+   "zone": "2",
+   "suburb": "Carrum",
+   "lga": "Kingston"
+  },
+  "vic:rail:CBE": {
+   "zone": "2",
+   "suburb": "Cranbourne",
+   "lga": "Casey"
+  },
+  "vic:rail:CBY": {
+   "zone": "1/2",
+   "suburb": "Canterbury",
+   "lga": "Boroondara"
+  },
+  "vic:rail:CDA": {
+   "zone": "2",
+   "suburb": "Pakenham",
+   "lga": "Cardinia"
+  },
+  "vic:rail:CDN": {
+   "zone": "2",
+   "suburb": "Croydon",
+   "lga": "Maroondah"
+  },
+  "vic:rail:CFD": {
+   "zone": "1",
+   "suburb": "Caulfield East",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:CGB": {
+   "zone": "2",
+   "suburb": "Craigieburn",
+   "lga": "Hume"
+  },
+  "vic:rail:CHL": {
+   "zone": "1",
+   "suburb": "Clifton Hill",
+   "lga": "Yarra"
+  },
+  "vic:rail:CHM": {
+   "zone": "1/2",
+   "suburb": "Surrey Hills",
+   "lga": "Boroondara"
+  },
+  "vic:rail:CLA": {
+   "zone": "2",
+   "suburb": "Clayton",
+   "lga": "Monash"
+  },
+  "vic:rail:CLO": {
+   "zone": "2",
+   "suburb": "Coolaroo",
+   "lga": "Hume"
+  },
+  "vic:rail:CNE": {
+   "zone": "1",
+   "suburb": "Carnegie",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:COB": {
+   "zone": "1",
+   "suburb": "Coburg",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:CPT": {
+   "zone": "2",
+   "suburb": "Crib Point",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:CSA": {
+   "zone": "2",
+   "suburb": "Chelsea",
+   "lga": "Kingston"
+  },
+  "vic:rail:CTM": {
+   "zone": "2",
+   "suburb": "Cheltenham",
+   "lga": "Kingston"
+  },
+  "vic:rail:CWD": {
+   "zone": "1",
+   "suburb": "Abbotsford",
+   "lga": "Yarra"
+  },
+  "vic:rail:CXT": {
+   "zone": "1",
+   "suburb": "Northcote",
+   "lga": "Darebin"
+  },
+  "vic:rail:DBN": {
+   "zone": "1",
+   "suburb": "Ivanhoe",
+   "lga": "Banyule"
+  },
+  "vic:rail:DCK": {
+   "zone": "2",
+   "suburb": "Diamond Creek",
+   "lga": "Nillumbik"
+  },
+  "vic:rail:DEN": {
+   "zone": "1",
+   "suburb": "Northcote",
+   "lga": "Darebin"
+  },
+  "vic:rail:DLG": {
+   "zone": "1/2",
+   "suburb": "Malvern East",
+   "lga": "Stonnington"
+  },
+  "vic:rail:DNG": {
+   "zone": "2",
+   "suburb": "Dandenong",
+   "lga": "Greater Dandenong"
+  },
+  "vic:rail:DRT": {
+   "zone": "2",
+   "suburb": "Diggers Rest",
+   "lga": "Melton"
+  },
+  "vic:rail:EAG": {
+   "zone": "1/2",
+   "suburb": "Eaglemont",
+   "lga": "Banyule"
+  },
+  "vic:rail:ECM": {
+   "zone": "1",
+   "suburb": "Camberwell",
+   "lga": "Boroondara"
+  },
+  "vic:rail:EDI": {
+   "zone": "2",
+   "suburb": "Edithvale",
+   "lga": "Kingston"
+  },
+  "vic:rail:ELS": {
+   "zone": "1",
+   "suburb": "Elsternwick",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:ELT": {
+   "zone": "2",
+   "suburb": "Eltham",
+   "lga": "Nillumbik"
+  },
+  "vic:rail:EMV": {
+   "zone": "1/2",
+   "suburb": "Malvern East",
+   "lga": "Stonnington"
+  },
+  "vic:rail:EPH": {
+   "zone": "2",
+   "suburb": "Pakenham",
+   "lga": "Cardinia"
+  },
+  "vic:rail:EPP": {
+   "zone": "2",
+   "suburb": "Epping",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:ERM": {
+   "zone": "1",
+   "suburb": "Cremorne",
+   "lga": "Yarra"
+  },
+  "vic:rail:ESD": {
+   "zone": "1",
+   "suburb": "Essendon",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:FAK": {
+   "zone": "1/2",
+   "suburb": "Hadfield",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:FBD": {
+   "zone": "1",
+   "suburb": "North Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:FFD": {
+   "zone": "1",
+   "suburb": "Fairfield",
+   "lga": "Darebin"
+  },
+  "vic:rail:FGS": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:FKN": {
+   "zone": "2",
+   "suburb": "Frankston",
+   "lga": "Frankston"
+  },
+  "vic:rail:FSS": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:FSY": {
+   "zone": "1",
+   "suburb": "Footscray",
+   "lga": "Maribyrnong"
+  },
+  "vic:rail:FTG": {
+   "zone": "2",
+   "suburb": "Ferntree Gully",
+   "lga": "Knox"
+  },
+  "vic:rail:GAR": {
+   "zone": "1",
+   "suburb": "Glen Iris",
+   "lga": "Stonnington"
+  },
+  "vic:rail:GBV": {
+   "zone": "1",
+   "suburb": "Essendon",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:GFE": {
+   "zone": "1",
+   "suburb": "Hawthorn",
+   "lga": "Boroondara"
+  },
+  "vic:rail:GHY": {
+   "zone": "1",
+   "suburb": "Glen Huntly",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:GIN": {
+   "zone": "2",
+   "suburb": "St Albans",
+   "lga": "Brimbank"
+  },
+  "vic:rail:GIR": {
+   "zone": "1",
+   "suburb": "Glen Iris",
+   "lga": "Stonnington"
+  },
+  "vic:rail:GOW": {
+   "zone": "2",
+   "suburb": "Fawkner",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:GRN": {
+   "zone": "2",
+   "suburb": "Greensborough",
+   "lga": "Banyule"
+  },
+  "vic:rail:GRY": {
+   "zone": "1/2",
+   "suburb": "Glenroy",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:GVE": {
+   "zone": "1",
+   "suburb": "Brighton",
+   "lga": "Bayside"
+  },
+  "vic:rail:GWY": {
+   "zone": "2",
+   "suburb": "Glen Waverley",
+   "lga": "Monash"
+  },
+  "vic:rail:HAM": {
+   "zone": "2",
+   "suburb": "Hampton",
+   "lga": "Bayside"
+  },
+  "vic:rail:HAW": {
+   "zone": "1",
+   "suburb": "Hawthorn",
+   "lga": "Boroondara"
+  },
+  "vic:rail:HBE": {
+   "zone": "2",
+   "suburb": "Hurstbridge",
+   "lga": "Nillumbik"
+  },
+  "vic:rail:HCG": {
+   "zone": "2",
+   "suburb": "Werribee",
+   "lga": "Wyndham"
+  },
+  "vic:rail:HDB": {
+   "zone": "1/2",
+   "suburb": "Heidelberg",
+   "lga": "Banyule"
+  },
+  "vic:rail:HEY": {
+   "zone": "1",
+   "suburb": "Toorak",
+   "lga": "Stonnington"
+  },
+  "vic:rail:HIG": {
+   "zone": "2",
+   "suburb": "Highett",
+   "lga": "Bayside"
+  },
+  "vic:rail:HKN": {
+   "zone": "1",
+   "suburb": "South Yarra",
+   "lga": "Stonnington"
+  },
+  "vic:rail:HLM": {
+   "zone": "2",
+   "suburb": "Hallam",
+   "lga": "Casey"
+  },
+  "vic:rail:HMT": {
+   "zone": "2",
+   "suburb": "Heathmont",
+   "lga": "Maroondah"
+  },
+  "vic:rail:HOL": {
+   "zone": "1/2",
+   "suburb": "Malvern East",
+   "lga": "Stonnington"
+  },
+  "vic:rail:HST": {
+   "zone": "2",
+   "suburb": "Hastings",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:HTD": {
+   "zone": "2",
+   "suburb": "Ringwood",
+   "lga": "Maroondah"
+  },
+  "vic:rail:HUG": {
+   "zone": "1/2",
+   "suburb": "Murrumbeena",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:HUN": {
+   "zone": "1/2",
+   "suburb": "Oakleigh",
+   "lga": "Monash"
+  },
+  "vic:rail:HWL": {
+   "zone": "1",
+   "suburb": "Camberwell",
+   "lga": "Boroondara"
+  },
+  "vic:rail:HWS": {
+   "zone": "2",
+   "suburb": "South Morang",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:IVA": {
+   "zone": "1/2",
+   "suburb": "Ivanhoe",
+   "lga": "Banyule"
+  },
+  "vic:rail:JAC": {
+   "zone": "2",
+   "suburb": "Glenroy",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:JLI": {
+   "zone": "1",
+   "suburb": "East Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:JOR": {
+   "zone": "2",
+   "suburb": "Mount Waverley",
+   "lga": "Monash"
+  },
+  "vic:rail:JWL": {
+   "zone": "1",
+   "suburb": "Brunswick",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:KAN": {
+   "zone": "2",
+   "suburb": "Seaford",
+   "lga": "Frankston"
+  },
+  "vic:rail:KEN": {
+   "zone": "1",
+   "suburb": "Kensington",
+   "lga": "Melbourne"
+  },
+  "vic:rail:KPK": {
+   "zone": "2",
+   "suburb": "Reservoir",
+   "lga": "Darebin"
+  },
+  "vic:rail:KPL": {
+   "zone": "2",
+   "suburb": "St Albans",
+   "lga": "Brimbank"
+  },
+  "vic:rail:KYG": {
+   "zone": "1",
+   "suburb": "Kooyong",
+   "lga": "Stonnington"
+  },
+  "vic:rail:LAB": {
+   "zone": "2",
+   "suburb": "Blackburn",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:LAL": {
+   "zone": "2",
+   "suburb": "Lalor",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:LAV": {
+   "zone": "1/2",
+   "suburb": "Laverton",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:LBK": {
+   "zone": "2",
+   "suburb": "Lyndhurst",
+   "lga": "Casey"
+  },
+  "vic:rail:LIL": {
+   "zone": "2",
+   "suburb": "Lilydale",
+   "lga": "Yarra Ranges"
+  },
+  "vic:rail:LWA": {
+   "zone": "2",
+   "suburb": "Frankston",
+   "lga": "Frankston"
+  },
+  "vic:rail:MAC": {
+   "zone": "1",
+   "suburb": "North Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:MAL": {
+   "zone": "1",
+   "suburb": "Malvern",
+   "lga": "Stonnington"
+  },
+  "vic:rail:MBN": {
+   "zone": "1/2",
+   "suburb": "Brighton",
+   "lga": "Bayside"
+  },
+  "vic:rail:MCD": {
+   "zone": "2",
+   "suburb": "Macleod",
+   "lga": "Banyule"
+  },
+  "vic:rail:MCE": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:MCH": {
+   "zone": "2",
+   "suburb": "Mitcham",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:MCK": {
+   "zone": "1/2",
+   "suburb": "Mckinnon",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:MDD": {
+   "zone": "2",
+   "suburb": "Mernda",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:MEN": {
+   "zone": "2",
+   "suburb": "Mentone",
+   "lga": "Kingston"
+  },
+  "vic:rail:MER": {
+   "zone": "1",
+   "suburb": "Northcote",
+   "lga": "Darebin"
+  },
+  "vic:rail:MFY": {
+   "zone": "1",
+   "suburb": "Footscray",
+   "lga": "Maribyrnong"
+  },
+  "vic:rail:MLD": {
+   "zone": "1",
+   "suburb": "Coburg",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:MLK": {
+   "zone": "2",
+   "suburb": "Mooroolbark",
+   "lga": "Yarra Ranges"
+  },
+  "vic:rail:MMR": {
+   "zone": "2",
+   "suburb": "South Morang",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:MMY": {
+   "zone": "2",
+   "suburb": "Montmorency",
+   "lga": "Banyule"
+  },
+  "vic:rail:MOR": {
+   "zone": "2",
+   "suburb": "Mordialloc",
+   "lga": "Kingston"
+  },
+  "vic:rail:MPD": {
+   "zone": "1",
+   "suburb": "Moonee Ponds",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:MPK": {
+   "zone": "2",
+   "suburb": "Cranbourne North",
+   "lga": "Casey"
+  },
+  "vic:rail:MRB": {
+   "zone": "1",
+   "suburb": "Murrumbeena",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:MRN": {
+   "zone": "2",
+   "suburb": "Moorabbin",
+   "lga": "Kingston"
+  },
+  "vic:rail:MRO": {
+   "zone": "2",
+   "suburb": "Crib Point",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:MWY": {
+   "zone": "2",
+   "suburb": "Mount Waverley",
+   "lga": "Monash"
+  },
+  "vic:rail:MYN": {
+   "zone": "1/2",
+   "suburb": "Coburg North",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:NBN": {
+   "zone": "1/2",
+   "suburb": "Brighton",
+   "lga": "Bayside"
+  },
+  "vic:rail:NCE": {
+   "zone": "1",
+   "suburb": "Northcote",
+   "lga": "Darebin"
+  },
+  "vic:rail:NKT": {
+   "zone": "1",
+   "suburb": "Flemington",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:NME": {
+   "zone": "1",
+   "suburb": "West Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:NPK": {
+   "zone": "2",
+   "suburb": "Noble Park",
+   "lga": "Greater Dandenong"
+  },
+  "vic:rail:NPT": {
+   "zone": "1",
+   "suburb": "Newport",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:NRM": {
+   "zone": "1",
+   "suburb": "Richmond",
+   "lga": "Yarra"
+  },
+  "vic:rail:NWA": {
+   "zone": "2",
+   "suburb": "Narre Warren",
+   "lga": "Casey"
+  },
+  "vic:rail:NWG": {
+   "zone": "2",
+   "suburb": "Nunawading",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:NWN": {
+   "zone": "1",
+   "suburb": "Newport",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:OAK": {
+   "zone": "1/2",
+   "suburb": "Oakleigh",
+   "lga": "Monash"
+  },
+  "vic:rail:OFC": {
+   "zone": "2",
+   "suburb": "Officer",
+   "lga": "Cardinia"
+  },
+  "vic:rail:OKP": {
+   "zone": "1/2",
+   "suburb": "Oak Park",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:OMD": {
+   "zone": "1/2",
+   "suburb": "Ormond",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:PAR": {
+   "zone": "1",
+   "suburb": "East Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:PAT": {
+   "zone": "2",
+   "suburb": "Bentleigh",
+   "lga": "Glen Eira"
+  },
+  "vic:rail:PKD": {
+   "zone": "2",
+   "suburb": "Parkdale",
+   "lga": "Kingston"
+  },
+  "vic:rail:PKM": {
+   "zone": "2",
+   "suburb": "Pakenham",
+   "lga": "Cardinia"
+  },
+  "vic:rail:PKV": {
+   "zone": "1",
+   "suburb": "Parkville",
+   "lga": "Melbourne"
+  },
+  "vic:rail:PRA": {
+   "zone": "1",
+   "suburb": "Prahran",
+   "lga": "Stonnington"
+  },
+  "vic:rail:PRE": {
+   "zone": "1/2",
+   "suburb": "Preston",
+   "lga": "Darebin"
+  },
+  "vic:rail:PVL": {
+   "zone": "1/2",
+   "suburb": "Pascoe Vale",
+   "lga": "Merri-bek"
+  },
+  "vic:rail:REG": {
+   "zone": "1/2",
+   "suburb": "Reservoir",
+   "lga": "Darebin"
+  },
+  "vic:rail:RES": {
+   "zone": "1/2",
+   "suburb": "Reservoir",
+   "lga": "Darebin"
+  },
+  "vic:rail:RIP": {
+   "zone": "1",
+   "suburb": "Ripponlea",
+   "lga": "Port Phillip"
+  },
+  "vic:rail:RIV": {
+   "zone": "1",
+   "suburb": "Camberwell",
+   "lga": "Boroondara"
+  },
+  "vic:rail:RMD": {
+   "zone": "1",
+   "suburb": "Richmond",
+   "lga": "Yarra"
+  },
+  "vic:rail:ROS": {
+   "zone": "2",
+   "suburb": "Rosanna",
+   "lga": "Banyule"
+  },
+  "vic:rail:RPK": {
+   "zone": "1",
+   "suburb": "Parkville",
+   "lga": "Melbourne"
+  },
+  "vic:rail:RUS": {
+   "zone": "1",
+   "suburb": "Fitzroy North",
+   "lga": "Yarra"
+  },
+  "vic:rail:RUT": {
+   "zone": "2",
+   "suburb": "Reservoir",
+   "lga": "Darebin"
+  },
+  "vic:rail:RWD": {
+   "zone": "2",
+   "suburb": "Ringwood",
+   "lga": "Maroondah"
+  },
+  "vic:rail:RWE": {
+   "zone": "2",
+   "suburb": "Ringwood East",
+   "lga": "Maroondah"
+  },
+  "vic:rail:RXP": {
+   "zone": "2",
+   "suburb": "Roxburgh Park",
+   "lga": "Hume"
+  },
+  "vic:rail:SAB": {
+   "zone": "2",
+   "suburb": "St Albans",
+   "lga": "Brimbank"
+  },
+  "vic:rail:SEA": {
+   "zone": "2",
+   "suburb": "Seaford",
+   "lga": "Frankston"
+  },
+  "vic:rail:SEN": {
+   "zone": "1",
+   "suburb": "Seddon",
+   "lga": "Maribyrnong"
+  },
+  "vic:rail:SGS": {
+   "zone": "1",
+   "suburb": "Flemington",
+   "lga": "Melbourne"
+  },
+  "vic:rail:SHE": {
+   "zone": "1",
+   "suburb": "Seaholme",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:SHM": {
+   "zone": "2",
+   "suburb": "Sandringham",
+   "lga": "Bayside"
+  },
+  "vic:rail:SKN": {
+   "zone": "1",
+   "suburb": "Kensington",
+   "lga": "Melbourne"
+  },
+  "vic:rail:SME": {
+   "zone": "1",
+   "suburb": "Essendon",
+   "lga": "Moonee Valley"
+  },
+  "vic:rail:SMG": {
+   "zone": "2",
+   "suburb": "South Morang",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:SNP": {
+   "zone": "2",
+   "suburb": "Springvale",
+   "lga": "Greater Dandenong"
+  },
+  "vic:rail:SOU": {
+   "zone": "2",
+   "suburb": "Cheltenham",
+   "lga": "Bayside"
+  },
+  "vic:rail:SPG": {
+   "zone": "2",
+   "suburb": "Springvale",
+   "lga": "Greater Dandenong"
+  },
+  "vic:rail:SPT": {
+   "zone": "1",
+   "suburb": "Spotswood",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:SSS": {
+   "zone": "1",
+   "suburb": "Docklands",
+   "lga": "Melbourne"
+  },
+  "vic:rail:STL": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:STY": {
+   "zone": "2",
+   "suburb": "Crib Point",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:SUN": {
+   "zone": "1/2",
+   "suburb": "Sunshine",
+   "lga": "Brimbank"
+  },
+  "vic:rail:SUY": {
+   "zone": "2",
+   "suburb": "Sunbury",
+   "lga": "Hume"
+  },
+  "vic:rail:SVE": {
+   "zone": "2",
+   "suburb": "Somerville",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:SYN": {
+   "zone": "2",
+   "suburb": "Glen Waverley",
+   "lga": "Monash"
+  },
+  "vic:rail:SYR": {
+   "zone": "1",
+   "suburb": "South Yarra",
+   "lga": "Stonnington"
+  },
+  "vic:rail:TAB": {
+   "zone": "2",
+   "suburb": "Tyabb",
+   "lga": "Mornington Peninsula"
+  },
+  "vic:rail:TBY": {
+   "zone": "1",
+   "suburb": "Thornbury",
+   "lga": "Darebin"
+  },
+  "vic:rail:TCM": {
+   "zone": "2",
+   "suburb": "Tecoma",
+   "lga": "Yarra Ranges"
+  },
+  "vic:rail:TGA": {
+   "zone": "1",
+   "suburb": "Malvern",
+   "lga": "Stonnington"
+  },
+  "vic:rail:THL": {
+   "zone": "1",
+   "suburb": "Melbourne",
+   "lga": "Melbourne"
+  },
+  "vic:rail:TOR": {
+   "zone": "1",
+   "suburb": "Armadale",
+   "lga": "Stonnington"
+  },
+  "vic:rail:TOT": {
+   "zone": "1",
+   "suburb": "West Footscray",
+   "lga": "Maribyrnong"
+  },
+  "vic:rail:TSN": {
+   "zone": "2",
+   "suburb": "Thomastown",
+   "lga": "Whittlesea"
+  },
+  "vic:rail:UFD": {
+   "zone": "2",
+   "suburb": "Coolaroo",
+   "lga": "Hume"
+  },
+  "vic:rail:UFG": {
+   "zone": "2",
+   "suburb": "Upper Ferntree Gully",
+   "lga": "Knox"
+  },
+  "vic:rail:UNN": {
+   "zone": "1/2",
+   "suburb": "Mont Albert",
+   "lga": "Whitehorse"
+  },
+  "vic:rail:UPW": {
+   "zone": "2",
+   "suburb": "Upwey",
+   "lga": "Yarra Ranges"
+  },
+  "vic:rail:VPK": {
+   "zone": "1",
+   "suburb": "Abbotsford",
+   "lga": "Yarra"
+  },
+  "vic:rail:WAT": {
+   "zone": "2",
+   "suburb": "Watsonia",
+   "lga": "Banyule"
+  },
+  "vic:rail:WBH": {
+   "zone": "1",
+   "suburb": "Williamstown",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:WER": {
+   "zone": "2",
+   "suburb": "Werribee",
+   "lga": "Wyndham"
+  },
+  "vic:rail:WFY": {
+   "zone": "1",
+   "suburb": "West Footscray",
+   "lga": "Maribyrnong"
+  },
+  "vic:rail:WGS": {
+   "zone": "2",
+   "suburb": "Taylors Lakes",
+   "lga": "Brimbank"
+  },
+  "vic:rail:WIL": {
+   "zone": "1",
+   "suburb": "Williamstown",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:WIN": {
+   "zone": "1",
+   "suburb": "Windsor",
+   "lga": "Stonnington"
+  },
+  "vic:rail:WLD": {
+   "zone": "2",
+   "suburb": "Williams Landing",
+   "lga": "Wyndham"
+  },
+  "vic:rail:WRM": {
+   "zone": "1",
+   "suburb": "Richmond",
+   "lga": "Yarra"
+  },
+  "vic:rail:WSN": {
+   "zone": "1",
+   "suburb": "Camberwell",
+   "lga": "Boroondara"
+  },
+  "vic:rail:WTG": {
+   "zone": "1",
+   "suburb": "Northcote",
+   "lga": "Darebin"
+  },
+  "vic:rail:WTL": {
+   "zone": "2",
+   "suburb": "Clayton South",
+   "lga": "Kingston"
+  },
+  "vic:rail:WTO": {
+   "zone": "1/2",
+   "suburb": "Altona",
+   "lga": "Hobsons Bay"
+  },
+  "vic:rail:WTT": {
+   "zone": "2",
+   "suburb": "Wattle Glen",
+   "lga": "Nillumbik"
+  },
+  "vic:rail:YMN": {
+   "zone": "2",
+   "suburb": "Noble Park",
+   "lga": "Greater Dandenong"
+  },
+  "vic:rail:YVE": {
+   "zone": "1",
+   "suburb": "Yarraville",
+   "lga": "Maribyrnong"
+  }
+ }
+}
