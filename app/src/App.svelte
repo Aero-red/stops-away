@@ -375,6 +375,23 @@
   // badges, earned once each, kept in this browser
   let badges = $state<string[]>(loadJSON(kv, 'chug:badges', [] as string[]));
   let toast = $state<{ id: string; name: string; text: string }[]>([]);
+  let toastTimer: ReturnType<typeof setTimeout> | undefined;
+  // phone header popover (Labels, Hard) and the credits card: one tap away, closed by tapping elsewhere
+  let optsOpen = $state(false);
+  let creditsOpen = $state(false);
+  let navEl = $state<HTMLElement>();
+  $effect(() => {
+    if (!optsOpen && !creditsOpen) return;
+    const away = (e: PointerEvent) => {
+      const t = e.target as Element;
+      if (optsOpen && !navEl?.contains(t)) optsOpen = false;
+      if (creditsOpen && !t.closest('.credits, .infobtn')) creditsOpen = false;
+    };
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') { optsOpen = false; creditsOpen = false; } };
+    document.addEventListener('pointerdown', away, true);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('pointerdown', away, true); document.removeEventListener('keydown', esc); };
+  });
 
   // station collection: every metro station met across games, kept in this browser
   let coll = $state<Collection>(loadJSON(kv, 'chug:collection', emptyCollection()));
@@ -411,8 +428,9 @@
       badges = [...badges, ...fresh];
       saveJSON(kv, 'chug:badges', badges);
       toast = fresh.map((id) => BADGES.find((b) => b.id === id)!);
-      const t = setTimeout(() => (toast = []), 5000);
-      return () => clearTimeout(t);
+      // a timer outside the effect: the effect re-runs on later changes, and a cleanup here cancelled it, so the card stayed
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => (toast = []), 5000);
     }
   });
 
@@ -471,8 +489,8 @@
   <header class="top">
     <strong>Stops Away</strong>
     <span class="meta">{mode === 'daily' ? `#${game.game}` : mode === 'regional' ? 'Regional · V/Line' : mode === 'connect' ? (cxDaily ? `Connect #${today}` : 'Connect · practice') : mode === 'linerun' ? 'Line Run' : mode === 'collection' ? 'My stations' : mode === 'practice' && practiceLine ? `Practice · ${metroNet.lines.find((l) => l.id === practiceLine)?.name} line` : mode === 'duel' && duel ? `Duel${game.hard ? ' · Hard' : ''} · ${!duel.theirs ? 'new challenge' : duel.theirs.guesses === null ? 'they missed it' : `beat ${duelPoints(duel.theirs)} pts`}` : 'Practice'}</span>
-    <span class="meta" title="Daily streak">🔥 {shownStreak(stats, today)}</span>
-    <nav>
+    <span class="meta streak" title="Daily streak">🔥 {shownStreak(stats, today)}</span>
+    <nav bind:this={navEl}>
       <!-- every way to play in one menu, so the header fits a phone -->
       <select class="modesel" aria-label="Mode" value={mode} onchange={(e) => start(e.currentTarget.value as keyof typeof modes)}>
         <option value="daily">Daily</option>
@@ -483,6 +501,15 @@
         <option value="duel">Duel</option>
         <option value="collection">My map</option>
       </select>
+      <!-- phones: Labels and Hard sit behind one small button, so the header is a single row -->
+      {#if !isConnect && !inRun}
+        <button type="button" class="optsbtn" aria-label="Map options" aria-expanded={optsOpen} aria-controls="opts"
+          onclick={() => (optsOpen = !optsOpen)}>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h9M16 6h1M3 14h3M10 14h7" /><circle cx="14" cy="6" r="2" /><circle cx="8" cy="14" r="2" /></svg>
+          {#if guessGame}<span class="mode" class:hard={game.hard}>{game.hard ? 'Hard' : 'Easy'}</span>{/if}
+        </button>
+      {/if}
+      <div class="opts" id="opts" class:open={optsOpen}>
       <!-- Connect and Line Run decide themselves which names show; Hard belongs to the guess games -->
       {#if !isConnect && !inRun}
         <label class="switch" title={hardHere ? 'Hard mode shows no names' : 'Name the big stations; zoom in for all'}>
@@ -493,11 +520,31 @@
         <label class="switch hard" title="No names or lines; 12 guesses; hints cost double">
           <input type="checkbox" role="switch" checked={game.hard} onchange={(e) => toggleHard(e.currentTarget.checked, e.currentTarget)} /><span class="knob" aria-hidden="true"></span>Hard</label>
       {/if}
-      <button type="button" aria-label="How to play" onclick={() => help?.showModal()}>?</button>
+      </div>
     </nav>
+    <button type="button" class="helpbtn" aria-label="How to play" onclick={() => help?.showModal()}>?</button>
   </header>
 
   <main class="map-wrap">
+    {#if toast.length}
+      <!-- new badges: one small card at the foot of the map, clear of the header and the controls; it goes after 5 s -->
+      <div class="toast" role="status">
+        {#each toast as b (b.id)}<p><span class="medal" aria-hidden="true"></span><span class="bt"><b>{b.name}</b><span>{b.text}</span></span></p>{/each}
+      </div>
+    {/if}
+    <!-- every credit (street map and network data) behind one small button in the map's corner -->
+    <button type="button" class="infobtn" aria-label="Map and data credits" aria-expanded={creditsOpen} aria-controls="credits"
+      onclick={() => (creditsOpen = !creditsOpen)}>i</button>
+    {#if creditsOpen}
+      <div class="credits" id="credits" role="region" aria-label="Credits">
+        {#if mapMode === 'geo'}
+          <p>Street map: <a href="https://openfreemap.org" target="_blank" rel="noreferrer">OpenFreeMap</a> ·
+            <a href="https://www.openmaptiles.org/" target="_blank" rel="noreferrer">© OpenMapTiles</a> · data
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></p>
+        {/if}
+        <p>Network: GTFS Schedule and Vicmap Admin, Department of Transport and Planning (Victoria), CC BY 4.0 · fare zones: Metro Trains · station facts: Wikipedia</p>
+      </div>
+    {/if}
     <div class="mapmode" role="group" aria-label="Map style">
       <button type="button" aria-pressed={mapMode === 'geo'} onclick={() => setMap('geo')}>Map</button>
       <button type="button" aria-pressed={mapMode === 'diagram'} onclick={() => setMap('diagram')}>Diagram</button>
@@ -553,7 +600,7 @@
     {/if}
   </main>
 
-  <aside class="panel" bind:this={panel}>
+  <aside class="panel" class:done={over} bind:this={panel}>
     {#if isColl}
       <section class="connect collection" aria-label="My stations">
         <p class="route"><b>{coll.seen.length}</b> of {metroNet.stations.length} stations met · <b>{coll.found.length}</b> found</p>
@@ -690,7 +737,7 @@
       <HintShop {net} targetId={game.targetId} hints={game.hints} {over} hard={game.hard} onbuy={buy} />
     {/if}
     <HistorySheet {net} guesses={game.guesses} max={maxGuesses(game.hard)} hideLines={game.hard && !over} focus={focusGuess} onfocus={(id) => (focusGuess = id)} />
-    <GuessInput stations={net.stations} disabled={over} {used} onguess={guess} onmatches={(ids) => (glow = ids)} />
+    {#if !over}<GuessInput stations={net.stations} disabled={over} {used} onguess={guess} onmatches={(ids) => (glow = ids)} />{/if}
     {/if}
   </aside>
   <dialog bind:this={help} class="help" aria-label="How to play">
@@ -717,21 +764,15 @@
 
   <p class="sr-only" aria-live="polite">{announce}</p>
   {#if hardNote}<p class="hardnote" role="status">{hardNote}</p>{/if}
-  {#if toast.length}
-    <div class="toast" role="status">
-      {#each toast as b (b.id)}<p><span class="medal" aria-hidden="true"></span><b>{b.name}</b> · {b.text}</p>{/each}
-    </div>
-  {/if}
 
-  <footer class="credit">Data: GTFS Schedule and Vicmap Admin, Department of Transport and Planning (Victoria), CC BY 4.0 · fare zones: Metro Trains · station facts: Wikipedia</footer>
 </div>
 
 <style>
-  .app { height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; }
+  .app { height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
   .top { display: flex; align-items: center; gap: 8px 10px; padding: 8px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; min-width: 0; }
   .meta { color: var(--muted); font-size: 13px; }
-  nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
-  nav button { padding: 6px 12px; }
+  .helpbtn { padding: 6px 12px; font-size: 14px; }
+  nav { position: relative; margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
   .modesel { font-weight: 700; border-color: var(--accent); color: var(--accent); }
   /* Labels / Hard: pill switches. The real checkbox stays (keyboard, screen readers) but is drawn as a knob. */
   .switch { --on: var(--accent); position: relative; display: inline-flex; align-items: center; gap: 7px; min-height: 36px; box-sizing: border-box;
@@ -750,10 +791,25 @@
   .switch:has(input:disabled) { opacity: 0.5; cursor: default; }
   .switch:has(input:disabled):hover { border-color: var(--line); }
   @media (prefers-reduced-motion: reduce) { .switch, .knob, .knob::after { transition: none; } }
+  /* wide screens: Labels and Hard sit in the header; phones put them behind .optsbtn (the media rule below wins) */
+  .optsbtn { display: none; align-items: center; gap: 6px; min-height: 34px; padding: 0 10px; font-size: 13px; font-weight: 600; }
+  .optsbtn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+  .optsbtn .mode { color: var(--muted); }
+  .optsbtn .mode.hard { color: var(--warmer); }
+  .opts { display: contents; }
+  .streak { white-space: nowrap; }
   @media (max-width: 440px) {
-    /* phones: keep the mode buttons and toggles on one row */
-    nav { gap: 4px; font-size: 13px; }
-    nav button { padding: 6px 9px; }
+    /* phones: one header row — name, streak, mode menu, options, help; Labels and Hard in a popover */
+    .top { flex-wrap: nowrap; gap: 8px; padding: 6px 12px; }
+    .top strong { font-size: 15px; white-space: nowrap; }
+    .top .meta:not(.streak) { display: none; }
+    .helpbtn { min-width: 34px; min-height: 34px; padding: 0 10px; }
+    nav { flex-wrap: nowrap; gap: 6px; font-size: 13px; }
+    .modesel { min-height: 34px; padding-top: 4px; padding-bottom: 4px; max-width: 118px; }
+    .optsbtn { display: inline-flex; }
+    .opts { display: none; position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; padding: 8px; gap: 8px;
+            background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
+    .opts.open { display: grid; }
     .switch { gap: 5px; padding: 0 9px 0 6px; min-height: 34px; }
     .knob { width: 22px; height: 14px; }
     .knob::after { width: 10px; height: 10px; }
@@ -769,10 +825,20 @@
   .mapmode { position: absolute; left: 8px; top: 8px; z-index: 1; display: flex; padding: 3px; gap: 2px;
              background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
   .mapmode button { border: 0; padding: 8px 12px; min-height: 38px; font-size: 14px; border-radius: 9px; background: none; color: var(--muted); }
+  @media (max-width: 440px) { .mapmode button { padding: 5px 10px; min-height: 32px; font-size: 13px; } }
   .mapmode button[aria-pressed='true'] { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--fg); font-weight: 600; }
-  .credit { font-size: 11px; color: var(--muted); padding: 4px 16px 6px; overflow-wrap: anywhere; }
+  .infobtn { position: absolute; right: 8px; bottom: 8px; z-index: 2; width: 26px; height: 26px; padding: 0; border-radius: 50%;
+             font: italic 700 14px/1 Georgia, serif; color: var(--muted); background: color-mix(in srgb, var(--surface) 88%, transparent);
+             border: 1px solid var(--line); display: grid; place-items: center; }
+  .infobtn::before { content: ''; position: absolute; inset: -9px; } /* a 44 px touch target around a small mark */
+  .credits { position: absolute; right: 8px; bottom: 42px; z-index: 4; max-width: min(320px, calc(100% - 16px)); padding: 10px 12px;
+             display: grid; gap: 6px; font-size: 12px; line-height: 1.4; color: var(--muted); background: var(--surface);
+             border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.2); }
+  .credits p { margin: 0; }
+  .credits a { color: inherit; }
   .panel { display: grid; gap: 10px; padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
-           border-top: 1px solid var(--line); background: var(--bg); max-height: 45dvh; overflow: auto; align-content: safe end; } /* safe: overflow at the top stays scrollable */
+           border-top: 1px solid var(--line); background: var(--bg); max-height: 45dvh; overflow: auto; align-content: safe end; }
+  .panel.done { max-height: 60dvh; } /* a finished game: the result and every guess matter more than the map */
 
   .card { position: absolute; left: 16px; right: 16px; bottom: 16px; max-width: 360px; margin: 0 auto;
           background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px;
@@ -802,10 +868,14 @@
               padding: 10px 14px; border-radius: 10px; background: var(--fg); color: var(--bg); font-size: 14px;
               box-shadow: 0 8px 24px rgb(0 0 0 / 0.18); animation: toast-in 380ms cubic-bezier(0.16, 1, 0.3, 1); }
   @media (prefers-reduced-motion: reduce) { .hardnote { animation: none; } }
-  .toast { position: fixed; left: 50%; top: 64px; transform: translateX(-50%); z-index: 20; display: grid; gap: 6px;
+  .toast { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); z-index: 3; width: max-content;
+           max-width: min(340px, calc(100% - 32px)); display: grid; gap: 8px; padding: 10px 14px; border-radius: 14px;
+           background: var(--surface); border: 1px solid #e8b931; box-shadow: 0 8px 24px rgb(0 0 0 / 0.22); 
            animation: toast-in 380ms cubic-bezier(0.16, 1, 0.3, 1); }
-  .toast p { margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--surface); border: 1px solid #e8b931;
-             box-shadow: 0 8px 24px rgb(0 0 0 / 0.16); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .toast p { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.3; }
+  .toast .bt { display: grid; min-width: 0; }
+  .toast .bt b { font-size: 14px; }
+  .toast .bt span { color: var(--muted); }
   .medal { width: 14px; height: 14px; border-radius: 50%; background: #e8b931; box-shadow: inset 0 0 0 3px #f6d873; flex: none; }
   @keyframes toast-in { from { opacity: 0; transform: translate(-50%, -8px); } to { opacity: 1; transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
@@ -869,7 +939,6 @@
 
   @media (min-width: 900px) {
     .app { grid-template-columns: 1fr 380px; grid-template-rows: auto 1fr auto; }
-    .credit { grid-column: 1 / -1; }
     .top { grid-column: 1 / -1; }
     .panel { border-top: 0; border-left: 1px solid var(--line); max-height: none; align-content: start;
              grid-auto-rows: max-content; }

@@ -77,7 +77,7 @@ async function openPage(o: Opts = {}) {
   // wait until the game is on screen, not a fixed time (software WebGL makes loads vary)
   const ready = async () => {
     for (let i = 0; i < 100; i++) {
-      const r = await send('Runtime.evaluate', { expression: `!!document.querySelector('input[role=combobox]') && document.querySelectorAll('g.stop').length === 226`, returnByValue: true });
+      const r = await send('Runtime.evaluate', { expression: `!!document.querySelector('.panel') && document.querySelectorAll('g.stop').length === 226`, returnByValue: true });
       if (r.result?.result?.value) return;
       await sleep(150);
     }
@@ -256,7 +256,7 @@ console.log(`day #${today}; target ${target.name} (from the engine)\n`);
 
   // win, then E4 / K3 / K1 win announcement / G2 first half
   await p.guessByTyping(target.name);
-  const status = await p.text('[role=status]');
+  const status = await p.text('.result[role=status]');
   check('E4', (await p.ev(`!!document.querySelector('.shop')`)) === false, 'hint shop gone after the game ends');
   // WIN: a celebration at the found station: ripples, a burst of rays in its lines' colours, journeys drawing in
   const win = await p.ev(`(() => { const w = document.querySelector('.win'); if (!w) return null;
@@ -338,7 +338,7 @@ console.log(`day #${today}; target ${target.name} (from the engine)\n`);
   check('G1', (await p.guesses()) === g && (await p.ev(`${hardBox}.checked`)) && (await p.ev(`document.querySelector('.shop .toggle')?.textContent.replace(/\\s+/g, ' ').trim() ?? null`)) === 'Hints · 80 pts left',
     `after reload: ${await p.guesses()} guesses, Hard kept, 80 pts`);
   await p.guessByTyping(target2.name);
-  const st = (await p.text('[role=status]')) ?? '';
+  const st = (await p.text('.result[role=status]')) ?? '';
   const share = st.split('\n').find((l) => l.startsWith('Stops Away #')) ?? '';
   check('F3', share.endsWith('· Hard'), `share "${share}"`);
   check('G2c', st.includes('Streak 2') && !!(await p.text('.top'))?.includes('🔥 2'), `after tomorrow's win: ${(st.split('\n').find((l) => l.startsWith('Played')) ?? '')}`);
@@ -401,7 +401,7 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const second = opts[1];
   await p.enter(); await sleep(700);
   const row = await p.text('.history ol li');
-  check('J3', ad === 'opt-1' && !!row?.startsWith(second) || (second === target.name && !!(await p.text('[role=status]'))),
+  check('J3', ad === 'opt-1' && !!row?.startsWith(second) || (second === target.name && !!(await p.text('.result[role=status]'))),
     `"ber" → ${JSON.stringify(opts.slice(0, 3))}; ↓ → ${ad}; Enter guessed "${row?.split('\n')[0]}"`);
   await p.close();
 }
@@ -453,6 +453,53 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   check('MAP3', w1 < w0 / 2 && !opened, `tap between ${pair[0][0]} and ${pair[1][0]} zooms in (view width ${w0.toFixed(1)} → ${w1.toFixed(1)}) and opens no card`);
   const tabbable = await p.ev(`document.querySelectorAll('g.stop[tabindex="0"]').length`);
   check('MAP4', tabbable === 1, `stops in the tab order: ${tabbable} (roving tabindex)`);
+  await p.close();
+}
+
+// ================= TOUCH: phone gestures keep the map under your fingers (user, 2026-11-21: "map movement doesn't work properly in mobile")
+{
+  const p = await openPage({ phone: true });
+  await p.go(); await clearSite(p); await p.reload();
+  await p.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+  // the map point under a screen point, from the live viewBox
+  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('svg.map'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.getAttribute('viewBox').split(' ').map(Number);
+    return [vx + (${x} - r.left) / r.width * vw, vy + (${y} - r.top) / r.height * vh, vw]; })()`) as Promise<number[]>;
+  const touch = (type: string, pts: [number, number][], timestamp?: number) =>
+    p.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map(([x, y], id) => ({ x, y, id })), ...(timestamp ? { timestamp } : {}) });
+  const box = (await p.ev(`(() => { const r = document.querySelector('svg.map').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
+  const cx = box[0] + box[2] / 2, cy = box[1] + box[3] / 2;
+  const off = (a: number[], b: number[]) => Math.hypot(a[0] - b[0], a[1] - b[1]) / a[2] * box[2]; // in screen px
+  // one finger: drag 120 px left and 60 px down in small steps
+  const g0 = await under(cx, cy);
+  await touch('touchStart', [[cx, cy]]);
+  for (let i = 1; i <= 12; i++) { await touch('touchMove', [[cx - 10 * i, cy + 5 * i]]); await sleep(16); }
+  await sleep(150); await touch('touchEnd', []); await sleep(200); // held still before lifting: no glide
+  const drag = off(g0, await under(cx - 120, cy + 60));
+  // pinch: two fingers 80 px apart spread to 240 px apart, about the same middle
+  const p0 = await under(cx, cy);
+  await touch('touchStart', [[cx - 40, cy], [cx + 40, cy]]);
+  for (let i = 1; i <= 16; i++) { await touch('touchMove', [[cx - 40 - 5 * i, cy], [cx + 40 + 5 * i, cy]]); await sleep(16); }
+  const p1 = await under(cx, cy);
+  // then both fingers move up together by 80 px: the map follows
+  for (let i = 1; i <= 8; i++) { await touch('touchMove', [[cx - 120, cy - 10 * i], [cx + 120, cy - 10 * i]]); await sleep(16); }
+  await touch('touchEnd', []); await sleep(200);
+  const p2 = await under(cx, cy - 80);
+  const zoom = p0[2] / p1[2];
+  // a quick flick: the map keeps gliding the same way after the finger lifts, then stops
+  const f0 = await under(cx, cy);
+  // stamped 16 ms apart like a real phone's frames: the busy test browser delivers them late, which would read as a slow lift
+  const t0 = Date.now() / 1000;
+  await touch('touchStart', [[cx, cy]], t0);
+  for (let i = 1; i <= 6; i++) await touch('touchMove', [[cx - 25 * i, cy]], t0 + 0.016 * i);
+  await touch('touchEnd', [], t0 + 0.016 * 7);
+  const atLift = (await under(cx - 150, cy))[0] - f0[0];
+  await sleep(2000);
+  const settled = (await under(cx - 150, cy))[0] - f0[0];
+  await sleep(300);
+  const still = (await under(cx - 150, cy))[0] - f0[0];
+  const glidePx = Math.abs(settled - atLift) / p2[2] * box[2];
+  check('TOUCH', drag < 3 && off(p0, p1) < 6 && zoom > 2.6 && zoom < 3.4 && off(p0, p2) < 6 && glidePx > 20 && settled > atLift && still === settled,
+    `drag: point under the finger is ${drag.toFixed(1)} px off; pinch ×${zoom.toFixed(2)} (want 3), middle ${off(p0, p1).toFixed(1)} px off; two-finger move: ${off(p0, p2).toFixed(1)} px off; flick glided ${glidePx.toFixed(0)} px further and stopped ${still === settled}`);
   await p.close();
 }
 
@@ -930,6 +977,45 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   await p.close();
 }
 
+// ================= PHONE: the phone layout (user's iPhone screenshots, 2026-11-21: congested; badges over the header; credits as an icon)
+{
+  const p = await openPage({ phone: true, scheme: 'dark' });
+  await p.go(); await clearSite(p); await p.reload();
+  const lay = async () => (await p.ev(`(() => {
+    const vis = (e) => !!e && e.getClientRects().length > 0;
+    const mid = (e) => { const r = e.getBoundingClientRect(); return Math.round((r.top + r.bottom) / 2); };
+    const items = [document.querySelector('.top strong'), document.querySelector('.helpbtn'), ...document.querySelectorAll('nav > *')].filter(vis);
+    return { rows: new Set(items.map(e => Math.round(mid(e) / 12))).size, header: Math.round(document.querySelector('.top').getBoundingClientRect().height),
+      strip: [...document.querySelectorAll('.credit')].some(vis), wide: document.documentElement.scrollWidth > innerWidth, input: !!document.querySelector('input[role=combobox]') };
+  })()`)) as any;
+  const playing = await lay();
+  // options: Labels and Hard behind one button; tapping the map closes it
+  // the switches' own boxes, not #opts: a display:contents wrapper has none either way
+  const switchesShown = () => p.ev(`[...document.querySelectorAll('#opts label')].some(l => l.getClientRects().length > 0)`);
+  const optsBefore = await switchesShown();
+  const btnShown = await p.ev(`document.querySelector('.optsbtn').getClientRects().length > 0`);
+  await p.ev(`document.querySelector('.optsbtn').click()`); await sleep(150);
+  const optsOpen = await p.ev(`[...document.querySelectorAll('#opts label')].filter(l => l.getClientRects().length).map(l => l.textContent.trim()).join(',')`);
+  await p.ev(`document.querySelector('svg.map').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }))`); await sleep(150);
+  const optsAfter = await switchesShown();
+  // credits: one small button opens them all
+  await p.ev(`document.querySelector('.infobtn').click()`); await sleep(150);
+  const credits = (await p.text('#credits')) ?? '';
+  await p.ev(`document.querySelector('.infobtn').click()`); await sleep(150);
+  await p.guessByTyping(byName('Richmond').id === target.id ? 'Flinders Street' : 'Richmond');
+  await p.guessByTyping(target.name); await sleep(300);
+  const toastBox = (await p.ev(`(() => { const t = document.querySelector('.toast')?.getBoundingClientRect(), m = document.querySelector('.map-wrap').getBoundingClientRect();
+    return t ? t.top >= m.top && t.bottom <= m.bottom && t.left >= m.left && t.right <= m.right : null; })()`)) as boolean | null;
+  const done = await lay();
+  const okPlay = playing.rows === 1 && playing.header <= 56 && !playing.strip && !playing.wide && playing.input;
+  const okOpts = btnShown === true && optsBefore === false && optsOpen === 'Labels,Hard' && optsAfter === false;
+  const okCredits = /OpenStreetMap/.test(credits) && /GTFS/.test(credits);
+  const okDone = toastBox === true && !done.strip && !done.input && !done.wide;
+  check('PHONE', okPlay && okOpts && okCredits && okDone,
+    `playing ${JSON.stringify(playing)}; options button shown ${btnShown}, switches ${optsBefore}→"${optsOpen}"→${optsAfter}; credits ${okCredits}; solved ${JSON.stringify(done)}, badge card inside the map ${toastBox}`);
+  await p.close();
+}
+
 // DUEL2: a link where they missed, opened fresh in a new tab
 {
   const p = await openPage();
@@ -961,6 +1047,9 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   await p.goTo(URL + '#duel=' + duelEncode(net, byName('Burnley').id, { guesses: 4, spent: 0, hard: false }));
   await p.guessByTyping('Richmond'); await p.guessByTyping('Burnley'); await sleep(300);
   const toast = ((await p.ev(`[...document.querySelectorAll('.toast b')].map(b => b.textContent)`)) as string[]).sort();
+  // TOASTGONE: the badge card leaves by itself after 5 s (user's phone, 2026-11-21: it stayed over the map)
+  await sleep(5600);
+  check('TOASTGONE', toast.length > 0 && (await p.ev(`!document.querySelector('.toast')`)) === true, `badge card shown, then gone after 5.6 s: ${await p.ev(`!document.querySelector('.toast')`)}`);
   await p.mode('My map'); await sleep(400);
   const earnedNow = ((await p.ev(`[...document.querySelectorAll('.badges li.earned b')].map(b => b.textContent)`)) as string[]).sort();
   check('BADGE', JSON.stringify(toast) === JSON.stringify(['Express', 'First stop', 'Platform rival']) && JSON.stringify(earnedNow) === JSON.stringify(toast),

@@ -60,29 +60,21 @@
     return () => { cancelled = true; dark.removeEventListener('change', restyle); map?.remove(); map = null; };
   });
 
+  // resizing MapLibre's canvas is costly: only when the box changes, not on every pan or pinch frame
+  let sizedFor = '';
   $effect(() => {
     const cam = cameraFor(view, size, world);
-    map?.resize();
-    map?.jumpTo(cam);
+    if (!map) return;
+    const key = `${size.w}x${size.h}`;
+    if (key !== sizedFor) { sizedFor = key; map.resize(); }
+    map.jumpTo(cam);
   });
 </script>
 
 <div class="basemap" class:ready aria-hidden="true" data-text-layers={textLayers} bind:this={el}></div>
-{#if !failed}
-  <p class="credit">
-    <a href="https://openfreemap.org" target="_blank" rel="noreferrer">OpenFreeMap</a>
-    <a href="https://www.openmaptiles.org/" target="_blank" rel="noreferrer">© OpenMapTiles</a>
-    Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>
-  </p>
-{/if}
 
 <style>
   .basemap { position: absolute; inset: 0; opacity: 0; transition: opacity 300ms ease-out; pointer-events: none; }
   .basemap.ready { opacity: 0.9; }
-  .credit {
-    position: absolute; right: 6px; bottom: 4px; margin: 0; z-index: 1; font-size: 10px; line-height: 1.4;
-    padding: 1px 6px; border-radius: 6px; background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--muted);
-  }
-  .credit a { color: inherit; }
   @media (prefers-reduced-motion: reduce) { .basemap { transition: none; } }
 </style>

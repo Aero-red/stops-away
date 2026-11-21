@@ -93,9 +93,12 @@
   const pointers = new Map<number, { x: number; y: number }>();
   let moved = 0;
   let dragged = false;
+  let pinched = false;
+  let vel = { x: 0, y: 0, t: 0 }; // finger speed in px/ms, for the glide after a flick
   function down(e: PointerEvent) {
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pointers.size === 1) { moved = 0; dragged = false; }
+    if (pointers.size === 1) { moved = 0; dragged = false; pinched = false; vel = { x: 0, y: 0, t: e.timeStamp }; }
+    flight++; // a finger on the map stops any glide or fly
   }
   function move(e: PointerEvent) {
     const p = pointers.get(e.pointerId);
@@ -107,16 +110,54 @@
         dragged = true;
         flight++; touched = true;
         view = pan(view, -(e.clientX - p.x) / k, -(e.clientY - p.y) / k);
+        const dt = Math.max(1, e.timeStamp - vel.t), a = Math.min(1, dt / 50); // smoothed over ~50 ms
+        vel = { x: vel.x * (1 - a) + ((e.clientX - p.x) / dt) * a, y: vel.y * (1 - a) + ((e.clientY - p.y) / dt) * a, t: e.timeStamp };
       }
     } else if (pointers.size === 2) {
+      // pinch and two-finger drag together: zoom by the change in finger spread about the old
+      // midpoint, then move the map so the point that was under the midpoint follows it
       const [o] = [...pointers.entries()].filter(([id]) => id !== e.pointerId).map(([, q]) => q);
       const before = Math.hypot(p.x - o.x, p.y - o.y), after = Math.hypot(e.clientX - o.x, e.clientY - o.y);
-      if (before > 0) zoomBy(after / before, (e.clientX + o.x) / 2, (e.clientY + o.y) / 2);
-      dragged = true;
+      const m0 = { x: (p.x + o.x) / 2, y: (p.y + o.y) / 2 }, m1 = { x: (e.clientX + o.x) / 2, y: (e.clientY + o.y) / 2 };
+      if (before > 0) {
+        flight++; touched = true;
+        const c = toMap(m0.x, m0.y);
+        const z = zoomAt(view, after / before, c.x, c.y, limits);
+        const k2 = size.w / z.w;
+        view = pan(z, -(m1.x - m0.x) / k2, -(m1.y - m0.y) / k2);
+      }
+      dragged = true; pinched = true;
     }
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   }
-  const up = (e: PointerEvent) => { pointers.delete(e.pointerId); };
+  const up = (e: PointerEvent) => {
+    pointers.delete(e.pointerId);
+    // a flick keeps the map gliding a little, slowing to a stop (not after a pinch, a slow drag, or with reduced motion)
+    if (pointers.size || !dragged || pinched || reduce || e.timeStamp - vel.t > 80) return;
+    const { x: vx, y: vy } = vel;
+    const speed = Math.hypot(vx, vy);
+    if (speed < 0.3) return;
+    // exponential ease-out by the clock, so a slow device glides the same distance in the same time
+    const TAU = 250, END = TAU * Math.log((speed * TAU) / 0.5); // stops when under half a pixel is left
+    const me = ++flight;
+    const t0 = performance.now(), kk = k;
+    let done = 0;
+    const step = (t: number) => {
+      if (me !== flight) return;
+      const u = Math.min(END, t - t0), f = 1 - Math.exp(-u / TAU);
+      view = pan(view, -(vx * TAU * (f - done)) / kk, -(vy * TAU * (f - done)) / kk);
+      done = f;
+      if (u < END) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  // iOS Safari: a pinch on the map must zoom the map, never the whole page
+  $effect(() => {
+    const stop = (e: Event) => e.preventDefault();
+    svg.addEventListener('gesturestart', stop);
+    svg.addEventListener('gesturechange', stop);
+    return () => { svg.removeEventListener('gesturestart', stop); svg.removeEventListener('gesturechange', stop); };
+  });
   function wheel(e: WheelEvent) {
     e.preventDefault();
     zoomBy(Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY);
@@ -554,10 +595,10 @@
   </svg>
 
   <div class="zoom">
-    <button type="button" aria-label="Zoom in" onclick={() => zoomBy(1.6)}>
+    <button type="button" class="zbtn" aria-label="Zoom in" onclick={() => zoomBy(1.6)}>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" /></svg>
     </button>
-    <button type="button" aria-label="Zoom out" onclick={() => zoomBy(1 / 1.6)}>
+    <button type="button" class="zbtn" aria-label="Zoom out" onclick={() => zoomBy(1 / 1.6)}>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12" /></svg>
     </button>
     <button type="button" aria-label="Show whole map" onclick={reset}>
@@ -657,6 +698,9 @@
 
   .zoom { position: absolute; right: 8px; top: 8px; display: grid; gap: 6px; }
   .zoom button { width: 44px; height: 44px; padding: 0; display: grid; place-items: center; }
+  /* touch screens pinch to zoom: only the whole-map button stays */
+  @media (hover: none) and (pointer: coarse) { .zoom .zbtn { display: none; } }
+  @media (max-width: 440px) { .zoom button { width: 40px; height: 40px; } }
   .zoom svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
   @media (prefers-reduced-motion: reduce) {
