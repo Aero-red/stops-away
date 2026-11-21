@@ -532,6 +532,10 @@
         {#each toast as b (b.id)}<p><span class="medal" aria-hidden="true"></span><span class="bt"><b>{b.name}</b><span>{b.text}</span></span></p>{/each}
       </div>
     {/if}
+    <!-- OpenStreetMap's licence asks for a visible credit on the map itself; the rest sit behind the (i) -->
+    {#if mapMode === 'geo'}
+      <a class="osm" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
+    {/if}
     <!-- every credit (street map and network data) behind one small button in the map's corner -->
     <button type="button" class="infobtn" aria-label="Map and data credits" aria-expanded={creditsOpen} aria-controls="credits"
       onclick={() => (creditsOpen = !creditsOpen)}>i</button>
@@ -830,6 +834,9 @@
   .infobtn { position: absolute; right: 8px; bottom: 8px; z-index: 2; width: 26px; height: 26px; padding: 0; border-radius: 50%;
              font: italic 700 14px/1 Georgia, serif; color: var(--muted); background: color-mix(in srgb, var(--surface) 88%, transparent);
              border: 1px solid var(--line); display: grid; place-items: center; }
+  .osm { position: absolute; right: 40px; bottom: 11px; z-index: 2; padding: 2px 6px; border-radius: 6px; font-size: 11px; line-height: 16px;
+         color: var(--muted); text-decoration: none; background: color-mix(in srgb, var(--surface) 80%, transparent); }
+  .osm:hover, .osm:focus-visible { color: var(--fg); text-decoration: underline; }
   .infobtn::before { content: ''; position: absolute; inset: -9px; } /* a 44 px touch target around a small mark */
   .credits { position: absolute; right: 8px; bottom: 42px; z-index: 4; max-width: min(320px, calc(100% - 16px)); padding: 10px 12px;
              display: grid; gap: 6px; font-size: 12px; line-height: 1.4; color: var(--muted); background: var(--surface);

@@ -998,6 +998,12 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const optsOpen = await p.ev(`[...document.querySelectorAll('#opts label')].filter(l => l.getClientRects().length).map(l => l.textContent.trim()).join(',')`);
   await p.ev(`document.querySelector('svg.map').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }))`); await sleep(150);
   const optsAfter = await switchesShown();
+  // a short OpenStreetMap credit stays visible on the street map, beside the (i), inside the map, not over it
+  const osm = (await p.ev(`(() => { const a = document.querySelector('a.osm'), i = document.querySelector('.infobtn'), m = document.querySelector('.map-wrap');
+    if (!a || !a.getClientRects().length) return null; const r = a.getBoundingClientRect(), b = i.getBoundingClientRect(), w = m.getBoundingClientRect();
+    return { text: a.textContent.trim(), href: a.href, inside: r.left >= w.left && r.right <= w.right && r.bottom <= w.bottom, clear: r.right <= b.left }; })()`)) as
+    { text: string; href: string; inside: boolean; clear: boolean } | null;
+  const okOsm = !!osm && /© OpenStreetMap/.test(osm.text) && /openstreetmap\.org\/copyright/.test(osm.href) && osm.inside && osm.clear;
   // credits: one small button opens them all
   await p.ev(`document.querySelector('.infobtn').click()`); await sleep(150);
   const credits = (await p.text('#credits')) ?? '';
@@ -1011,8 +1017,8 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const okOpts = btnShown === true && optsBefore === false && optsOpen === 'Labels,Hard' && optsAfter === false;
   const okCredits = /OpenStreetMap/.test(credits) && /GTFS/.test(credits);
   const okDone = toastBox === true && !done.strip && !done.input && !done.wide;
-  check('PHONE', okPlay && okOpts && okCredits && okDone,
-    `playing ${JSON.stringify(playing)}; options button shown ${btnShown}, switches ${optsBefore}→"${optsOpen}"→${optsAfter}; credits ${okCredits}; solved ${JSON.stringify(done)}, badge card inside the map ${toastBox}`);
+  check('PHONE', okPlay && okOpts && okCredits && okOsm && okDone,
+    `playing ${JSON.stringify(playing)}; options button shown ${btnShown}, switches ${optsBefore}→"${optsOpen}"→${optsAfter}; credits ${okCredits}; osm ${JSON.stringify(osm)}; solved ${JSON.stringify(done)}, badge card inside the map ${toastBox}`);
   await p.close();
 }
 
