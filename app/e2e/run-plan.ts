@@ -491,20 +491,22 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const d1 = await under(cx - 100, cy + 50);
   const drag = Math.hypot(scr(d0, d1, 0), scr(d0, d1, 1));
   const after = await p.ev(`getComputedStyle(document.querySelector('.stage')).cursor`);
-  // smoothness: while fingers scroll and pinch, the drawn map is only moved as a picture (no redraw of its
-  // stops and lines), then redrawn once when the hand rests, matching the live view
+  // smoothness: a Mac trackpad sends several events per frame. The map keeps redrawing while the fingers move
+  // (waiting for them to rest made zoom jump in steps) but at most once per frame (once per event stuttered).
   const smooth = (await p.ev(`(async () => { const s = document.querySelector('svg.map'), st = document.querySelector('.stage'), b = st.getBoundingClientRect();
-    let muts = 0; const mo = new MutationObserver((l) => { muts += l.filter(m => m.target !== s).length; }); mo.observe(s, { subtree: true, attributes: true, childList: true });
-    for (let i = 0; i < 6; i++) { for (const [dx, dy, ctrl] of [[3, 2, false], [0, -2, true]]) { const e = new WheelEvent('wheel', { deltaX: dx, deltaY: dy, ctrlKey: ctrl, clientX: b.left + b.width / 2, clientY: b.top + b.height / 2, bubbles: true, cancelable: true });
-      Object.defineProperty(e, 'wheelDeltaX', { value: -3 * dx }); Object.defineProperty(e, 'wheelDeltaY', { value: -3 * dy }); st.dispatchEvent(e); }
-      await new Promise(r => setTimeout(r, 16)); }
-    await new Promise(r => setTimeout(r, 0)); const during = muts, moving = getComputedStyle(s).transform !== 'none';
+    let redraws = 0; const mo = new MutationObserver((l) => { redraws += l.filter(m => m.attributeName === 'viewBox').length; }); mo.observe(s, { attributes: true });
+    const FRAMES = 8; let ticks = 0, on = true; const tick = () => { if (on) { ticks++; requestAnimationFrame(tick); } }; requestAnimationFrame(tick); // frames that really passed
+    for (let i = 0; i < FRAMES; i++) { for (const [dx, dy, ctrl] of [[3, 2, false], [0, -2, true], [3, 2, false], [0, -2, true]]) { const e = new WheelEvent('wheel', { deltaX: dx, deltaY: dy, ctrlKey: ctrl, clientX: b.left + b.width / 2, clientY: b.top + b.height / 2, bubbles: true, cancelable: true });
+      Object.defineProperty(e, 'wheelDeltaX', { value: -3 * dx }); Object.defineProperty(e, 'wheelDeltaY', { value: -3 * dy }); st.dispatchEvent(e);
+        await new Promise(r => { const c = new MessageChannel(); c.port1.onmessage = r; c.port2.postMessage(0); }); } // each event its own task, as real input arrives
+      await new Promise(r => requestAnimationFrame(r)); }
+    await new Promise(r => setTimeout(r, 0)); const during = redraws; on = false;
     await new Promise(r => setTimeout(r, 400)); mo.disconnect();
-    return { during, moving, after: muts, settled: s.getAttribute('viewBox') === st.dataset.view && getComputedStyle(s).transform === 'none' }; })()`)) as { during: number; moving: boolean; after: number; settled: boolean };
-  const ok = smooth.during === 0 && smooth.moving && smooth.after > 0 && smooth.settled && Math.abs(scroll.zoom - 1) < 0.01 && Math.abs(scroll.x - 120) < 3 && Math.abs(scroll.y - 160) < 3
+    return { events: FRAMES * 4, frames: ticks, during, settled: s.getAttribute('viewBox') === st.dataset.view && getComputedStyle(s).transform === 'none' }; })()`)) as { events: number; frames: number; during: number; settled: boolean };
+  const ok = smooth.during >= 2 && smooth.during <= smooth.frames + 1 && smooth.settled && Math.abs(scroll.zoom - 1) < 0.01 && Math.abs(scroll.x - 120) < 3 && Math.abs(scroll.y - 160) < 3
     && pinch.zoom > 2 && pinch.zoom < 3.5 && pinch.off < 3 && notch.zoom > 1.1 && notch.zoom < 1.25 && notch.off < 3
     && drag < 3 && grabbing === 'grabbing' && after === 'grab' && p.errors.length === 0;
-  check('DESK', ok, `trackpad scroll ${JSON.stringify(scroll)} (want zoom 1, 120, 160); pinch ×${pinch.zoom.toFixed(2)} off ${pinch.off.toFixed(1)} px; wheel notch ×${notch.zoom.toFixed(2)} off ${notch.off.toFixed(1)} px; drag ${drag.toFixed(1)} px off; cursor ${grabbing} then ${after}; while moving: ${smooth.during} map redraws, picture moved ${smooth.moving}; at rest redrawn ${smooth.after > 0}, matches ${smooth.settled}; errors ${p.errors.length}`);
+  check('DESK', ok, `trackpad scroll ${JSON.stringify(scroll)} (want zoom 1, 120, 160); pinch ×${pinch.zoom.toFixed(2)} off ${pinch.off.toFixed(1)} px; wheel notch ×${notch.zoom.toFixed(2)} off ${notch.off.toFixed(1)} px; drag ${drag.toFixed(1)} px off; cursor ${grabbing} then ${after}; while moving: ${smooth.during} redraws for ${smooth.events} events over ${smooth.frames} frames (want 2..${smooth.frames + 1}); at rest matches ${smooth.settled}; errors ${p.errors.length}`);
   await p.close();
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { untrack } from 'svelte';
+  import { flushSync, untrack } from 'svelte';
   import type { Network } from '../engine/types';
   import type { Feedback } from '../engine/modes/types';
   import { hopLines, neighbourInDirection, tickAngle, type Dir, type Layout } from './layout';
@@ -44,23 +44,34 @@
   let svg: SVGSVGElement;
   let stage: HTMLDivElement;
   let size = $state({ w: 1, h: 1 });
-  // Two views: `live` follows the player's hand every frame (and the street map with it); `view` is what the SVG is
-  // drawn for. While the hand moves, the drawn map is only slid and scaled as one picture (a GPU transform, no redraw);
-  // it is redrawn for the live view once the hand rests, or sooner after a big move (user, 2026-11-23: "not smooth").
+  // Two views: `live` follows the player's hand (and the street map with it); `view` is what the SVG is drawn for.
+  // The SVG is redrawn at most once per animation frame, however many input events arrive (a Mac trackpad sends
+  // several per frame; redrawing for each made movement stutter). A device too slow to redraw every frame redraws
+  // less often, and in between the drawn map is slid and scaled as one picture (user, 2026-11-23: "not smooth",
+  // then "zoom jumps in steps" when redraws waited for the hand to rest).
   let live = $state<View>({ x: 0, y: 0, w: 1, h: 1 });
   let view = $state<View>({ x: 0, y: 0, w: 1, h: 1 });
   const k = $derived(size.w / view.w);   // drawn scale: everything inside the SVG
   const kl = $derived(size.w / live.w);  // live scale: input and the street map
-  let commitTimer: ReturnType<typeof setTimeout> | undefined;
+  const same = (a: View, b: View) => a.x === b.x && a.y === b.y && a.w === b.w && a.h === b.h;
+  let raf = 0, nextAt = 0;
+  function redraw(t: number) {
+    raf = 0;
+    if (same(live, view)) return;
+    if (t < nextAt) { raf = requestAnimationFrame(redraw); return; }
+    const t0 = performance.now();
+    flushSync(() => { view = live; });
+    const cost = performance.now() - t0;
+    nextAt = cost > 12 ? t + cost * 2 : 0; // slow redraw: skip frames, the picture slides in between
+  }
   $effect(() => {
     const l = live, v = untrack(() => view);
-    clearTimeout(commitTimer);
-    if (l.x === v.x && l.y === v.y && l.w === v.w && l.h === v.h) return;
-    const s = v.w / l.w, dx = Math.abs(v.x - l.x) * kl, dy = Math.abs(v.y - l.y) * kl;
-    // first view, a big move (the picture's edge would show), or a resize: redraw now
-    if (v.w === 1 || s < 0.8 || s > 1.25 || dx > size.w * 0.15 || dy > size.h * 0.15 || Math.abs(v.h / v.w - l.h / l.w) > 1e-9) view = l;
-    else commitTimer = setTimeout(() => (view = live), 120);
+    if (same(l, v)) return;
+    // the first view, or a new shape (resize): draw at once, never a stretched picture
+    if (v.w === 1 || Math.abs(v.h / v.w - l.h / l.w) > 1e-9) { view = l; return; }
+    if (!raf) raf = requestAnimationFrame(redraw);
   });
+  $effect(() => () => cancelAnimationFrame(raf));
   // the drawn picture, slid and scaled onto the live view
   const shift = $derived.by(() => {
     if (live.x === view.x && live.y === view.y && live.w === view.w) return 'none';
