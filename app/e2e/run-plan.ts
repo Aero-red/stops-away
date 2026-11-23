@@ -456,6 +456,48 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   await p.close();
 }
 
+// ================= DESK: mouse and trackpad on a computer (user, 2026-11-22: "fix the map interaction in pc")
+{
+  const p = await openPage({});
+  await p.go(); await clearSite(p); await p.reload();
+  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('svg.map'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.getAttribute('viewBox').split(' ').map(Number);
+    return [vx + (${x} - r.left) / r.width * vw, vy + (${y} - r.top) / r.height * vh, vw]; })()`) as Promise<number[]>;
+  const box = (await p.ev(`(() => { const r = document.querySelector('svg.map').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
+  const cx = box[0] + box[2] / 2, cy = box[1] + box[3] / 2;
+  const scr = (a: number[], b: number[], i: number) => (b[i] - a[i]) / a[2] * box[2]; // map movement in screen px
+  // a real Mac trackpad's wheel events (wheelDelta = -3 x delta); the test browser's own wheel input always looks like a mouse
+  const pad = (dx: number, dy: number, ctrl: boolean, n: number) => p.ev(`(async () => { const s = document.querySelector('svg.map');
+    for (let i = 0; i < ${n}; i++) { const e = new WheelEvent('wheel', { deltaX: ${dx}, deltaY: ${dy}, deltaMode: 0, ctrlKey: ${ctrl}, clientX: ${cx}, clientY: ${cy}, bubbles: true, cancelable: true });
+      Object.defineProperty(e, 'wheelDeltaX', { value: ${-3 * dx} }); Object.defineProperty(e, 'wheelDeltaY', { value: ${-3 * dy} });
+      s.dispatchEvent(e); await new Promise(r => setTimeout(r, 16)); } })()`);
+  // two-finger scroll: 20 x (6, 8) px moves the map 120 x 160 px the way the fingers push the page, without zooming
+  const s0 = await under(cx, cy); await pad(6, 8, false, 20); await sleep(100); const s1 = await under(cx, cy);
+  const scroll = { zoom: s0[2] / s1[2], x: scr(s0, s1, 0), y: scr(s0, s1, 1) };
+  // pinch: 25 x -4 with ctrl zooms in about 2-3x, about the pointer
+  const z0 = await under(cx, cy); await pad(0, -4, true, 25); await sleep(100); const z1 = await under(cx, cy);
+  const pinch = { zoom: z0[2] / z1[2], off: Math.hypot(scr(z0, z1, 0), scr(z0, z1, 1)) };
+  // a mouse wheel notch still zooms about the pointer
+  const w0 = await under(cx + 100, cy - 50);
+  await p.send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: cx + 100, y: cy - 50, deltaX: 0, deltaY: -100 }); await sleep(150);
+  const w1 = await under(cx + 100, cy - 50);
+  const notch = { zoom: w0[2] / w1[2], off: Math.hypot(scr(w0, w1, 0), scr(w0, w1, 1)) };
+  // mouse drag: the point under the pointer stays under it; the hand closes while dragging
+  const mouse = (type: string, x: number, y: number, extra: object = {}) => p.send('Input.dispatchMouseEvent', { type, x, y, button: 'left', ...extra });
+  const d0 = await under(cx, cy);
+  await mouse('mousePressed', cx, cy, { buttons: 1, clickCount: 1 });
+  for (let i = 1; i <= 10; i++) { await mouse('mouseMoved', cx - 10 * i, cy + 5 * i, { buttons: 1 }); await sleep(16); }
+  const grabbing = await p.ev(`getComputedStyle(document.querySelector('svg.map')).cursor`);
+  await sleep(150); await mouse('mouseReleased', cx - 100, cy + 50, { clickCount: 1 }); await sleep(200);
+  const d1 = await under(cx - 100, cy + 50);
+  const drag = Math.hypot(scr(d0, d1, 0), scr(d0, d1, 1));
+  const after = await p.ev(`getComputedStyle(document.querySelector('svg.map')).cursor`);
+  const ok = Math.abs(scroll.zoom - 1) < 0.01 && Math.abs(scroll.x - 120) < 3 && Math.abs(scroll.y - 160) < 3
+    && pinch.zoom > 2 && pinch.zoom < 3.5 && pinch.off < 3 && notch.zoom > 1.1 && notch.zoom < 1.25 && notch.off < 3
+    && drag < 3 && grabbing === 'grabbing' && after === 'grab' && p.errors.length === 0;
+  check('DESK', ok, `trackpad scroll ${JSON.stringify(scroll)} (want zoom 1, 120, 160); pinch ×${pinch.zoom.toFixed(2)} off ${pinch.off.toFixed(1)} px; wheel notch ×${notch.zoom.toFixed(2)} off ${notch.off.toFixed(1)} px; drag ${drag.toFixed(1)} px off; cursor ${grabbing} then ${after}; errors ${p.errors.length}`);
+  await p.close();
+}
+
 // ================= TOUCH: phone gestures keep the map under your fingers (user, 2026-11-21: "map movement doesn't work properly in mobile")
 {
   const p = await openPage({ phone: true });

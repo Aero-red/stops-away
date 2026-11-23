@@ -4,6 +4,7 @@
   import type { Feedback } from '../engine/modes/types';
   import { hopLines, neighbourInDirection, tickAngle, type Dir, type Layout } from './layout';
   import { edgeSlots, fit, labelTier, pan, placeLabels, resolveTap, slotSpacing, zoomAt, type Side, type View } from './viewport';
+  import { isTrackpad, wheelIntent } from './wheel';
   import { warmth, type Warmth } from '../engine/warmth';
   import Basemap from './Basemap.svelte';
   import { mapReveal } from './reveal';
@@ -158,9 +159,20 @@
     svg.addEventListener('gesturechange', stop);
     return () => { svg.removeEventListener('gesturestart', stop); svg.removeEventListener('gesturechange', stop); };
   });
+  // mouse wheel zooms; a two-finger trackpad scroll moves the map; a trackpad pinch (ctrl + wheel) zooms.
+  // One scroll keeps the kind it started as, so a swipe's tail never turns into a zoom.
+  let stream = { t: -Infinity, pad: false };
   function wheel(e: WheelEvent) {
     e.preventDefault();
-    zoomBy(Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY);
+    const w = e as WheelEvent & { wheelDeltaX?: number; wheelDeltaY?: number };
+    if (!e.ctrlKey) { // a pinch is its own gesture: it neither starts nor extends a scroll
+      if (e.timeStamp - stream.t > 200) stream.pad = isTrackpad(w);
+      stream.t = e.timeStamp;
+    }
+    const it = wheelIntent(w, stream.pad);
+    if (it.kind === 'zoom') { zoomBy(it.factor, e.clientX, e.clientY); return; }
+    flight++; touched = true;
+    view = pan(view, it.dx / k, it.dy / k);
   }
 
   // ---- drawing
