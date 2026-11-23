@@ -42,9 +42,30 @@
 
   // ---- viewport: the SVG viewBox in map units; k = screen px per map unit
   let svg: SVGSVGElement;
+  let stage: HTMLDivElement;
   let size = $state({ w: 1, h: 1 });
+  // Two views: `live` follows the player's hand every frame (and the street map with it); `view` is what the SVG is
+  // drawn for. While the hand moves, the drawn map is only slid and scaled as one picture (a GPU transform, no redraw);
+  // it is redrawn for the live view once the hand rests, or sooner after a big move (user, 2026-11-23: "not smooth").
+  let live = $state<View>({ x: 0, y: 0, w: 1, h: 1 });
   let view = $state<View>({ x: 0, y: 0, w: 1, h: 1 });
-  const k = $derived(size.w / view.w);
+  const k = $derived(size.w / view.w);   // drawn scale: everything inside the SVG
+  const kl = $derived(size.w / live.w);  // live scale: input and the street map
+  let commitTimer: ReturnType<typeof setTimeout> | undefined;
+  $effect(() => {
+    const l = live, v = untrack(() => view);
+    clearTimeout(commitTimer);
+    if (l.x === v.x && l.y === v.y && l.w === v.w && l.h === v.h) return;
+    const s = v.w / l.w, dx = Math.abs(v.x - l.x) * kl, dy = Math.abs(v.y - l.y) * kl;
+    // first view, a big move (the picture's edge would show), or a resize: redraw now
+    if (v.w === 1 || s < 0.8 || s > 1.25 || dx > size.w * 0.15 || dy > size.h * 0.15 || Math.abs(v.h / v.w - l.h / l.w) > 1e-9) view = l;
+    else commitTimer = setTimeout(() => (view = live), 120);
+  });
+  // the drawn picture, slid and scaled onto the live view
+  const shift = $derived.by(() => {
+    if (live.x === view.x && live.y === view.y && live.w === view.w) return 'none';
+    return `translate(${(view.x - live.x) * kl}px, ${(view.y - live.y) * kl}px) scale(${view.w / live.w})`;
+  });
   const bounds = $derived.by(() => {
     const ps = Object.values(layout);
     return { minX: Math.min(...ps.map((p) => p.x)), minY: Math.min(...ps.map((p) => p.y)),
@@ -53,7 +74,7 @@
   const limits = $derived({ minW: 1.5, maxW: (bounds.maxX - bounds.minX) * 2 + 4 });
   let flight = 0;        // bumped by every player action, so an in-flight fly gives way
   let touched = false;   // has the player moved the map yet?
-  const reset = () => { flight++; view = fit(bounds, size.w / size.h, 0.6); };
+  const reset = () => { flight++; live = fit(bounds, size.w / size.h, 0.6); };
   // the opening view: the home stations (the city), or everything when none are given
   const homeBounds = $derived.by(() => {
     const ps = (home ?? []).map((id) => layout[id]).filter(Boolean);
@@ -61,7 +82,7 @@
     return { minX: Math.min(...ps.map((p) => p.x)), minY: Math.min(...ps.map((p) => p.y)),
              maxX: Math.max(...ps.map((p) => p.x)), maxY: Math.max(...ps.map((p) => p.y)) };
   });
-  const goHome = () => { flight++; view = fit(homeBounds ?? bounds, size.w / size.h, 0.6); };
+  const goHome = () => { flight++; live = fit(homeBounds ?? bounds, size.w / size.h, 0.6); };
 
   let fittedFor: Layout | null = null;
   $effect(() => {
@@ -74,20 +95,20 @@
       size = { w: e.contentRect.width || 1, h: e.contentRect.height || 1 };
       if (first) { fittedFor = layout; goHome(); }
       else if (!touched) goHome(); // the layout settled (e.g. the panel grew): back to the opening view
-      else view = { ...view, h: view.w * (size.h / size.w) }; // the player chose this view: keep its scale
+      else live = { ...live, h: live.w * (size.h / size.w) }; // the player chose this view: keep its scale
     });
     ro.observe(svg);
     return () => ro.disconnect();
   });
 
   const toMap = (cx: number, cy: number) => {
-    const r = svg.getBoundingClientRect();
-    return { x: view.x + ((cx - r.left) / r.width) * view.w, y: view.y + ((cy - r.top) / r.height) * view.h };
+    const r = stage.getBoundingClientRect(); // not the SVG's: it is transformed while the hand moves
+    return { x: live.x + ((cx - r.left) / r.width) * live.w, y: live.y + ((cy - r.top) / r.height) * live.h };
   };
   const zoomBy = (f: number, cx?: number, cy?: number) => {
     flight++; touched = true;
-    const c = cx === undefined ? { x: view.x + view.w / 2, y: view.y + view.h / 2 } : toMap(cx, cy!);
-    view = zoomAt(view, f, c.x, c.y, limits);
+    const c = cx === undefined ? { x: live.x + live.w / 2, y: live.y + live.h / 2 } : toMap(cx, cy!);
+    live = zoomAt(live, f, c.x, c.y, limits);
   };
 
   // drag to pan, two fingers to pinch; a drag never counts as a tap
@@ -107,10 +128,10 @@
     if (pointers.size === 1) {
       moved += Math.abs(e.clientX - p.x) + Math.abs(e.clientY - p.y);
       if (moved > 6) {
-        if (!dragged) svg.setPointerCapture(e.pointerId);
+        if (!dragged) stage.setPointerCapture(e.pointerId);
         dragged = true;
         flight++; touched = true;
-        view = pan(view, -(e.clientX - p.x) / k, -(e.clientY - p.y) / k);
+        live = pan(live, -(e.clientX - p.x) / kl, -(e.clientY - p.y) / kl);
         const dt = Math.max(1, e.timeStamp - vel.t), a = Math.min(1, dt / 50); // smoothed over ~50 ms
         vel = { x: vel.x * (1 - a) + ((e.clientX - p.x) / dt) * a, y: vel.y * (1 - a) + ((e.clientY - p.y) / dt) * a, t: e.timeStamp };
       }
@@ -123,9 +144,9 @@
       if (before > 0) {
         flight++; touched = true;
         const c = toMap(m0.x, m0.y);
-        const z = zoomAt(view, after / before, c.x, c.y, limits);
+        const z = zoomAt(live, after / before, c.x, c.y, limits);
         const k2 = size.w / z.w;
-        view = pan(z, -(m1.x - m0.x) / k2, -(m1.y - m0.y) / k2);
+        live = pan(z, -(m1.x - m0.x) / k2, -(m1.y - m0.y) / k2);
       }
       dragged = true; pinched = true;
     }
@@ -141,12 +162,12 @@
     // exponential ease-out by the clock, so a slow device glides the same distance in the same time
     const TAU = 250, END = TAU * Math.log((speed * TAU) / 0.5); // stops when under half a pixel is left
     const me = ++flight;
-    const t0 = performance.now(), kk = k;
+    const t0 = performance.now(), kk = kl;
     let done = 0;
     const step = (t: number) => {
       if (me !== flight) return;
       const u = Math.min(END, t - t0), f = 1 - Math.exp(-u / TAU);
-      view = pan(view, -(vx * TAU * (f - done)) / kk, -(vy * TAU * (f - done)) / kk);
+      live = pan(live, -(vx * TAU * (f - done)) / kk, -(vy * TAU * (f - done)) / kk);
       done = f;
       if (u < END) requestAnimationFrame(step);
     };
@@ -155,9 +176,9 @@
   // iOS Safari: a pinch on the map must zoom the map, never the whole page
   $effect(() => {
     const stop = (e: Event) => e.preventDefault();
-    svg.addEventListener('gesturestart', stop);
-    svg.addEventListener('gesturechange', stop);
-    return () => { svg.removeEventListener('gesturestart', stop); svg.removeEventListener('gesturechange', stop); };
+    stage.addEventListener('gesturestart', stop);
+    stage.addEventListener('gesturechange', stop);
+    return () => { stage.removeEventListener('gesturestart', stop); stage.removeEventListener('gesturechange', stop); };
   });
   // mouse wheel zooms; a two-finger trackpad scroll moves the map; a trackpad pinch (ctrl + wheel) zooms.
   // One scroll keeps the kind it started as, so a swipe's tail never turns into a zoom.
@@ -172,7 +193,7 @@
     const it = wheelIntent(w, stream.pad);
     if (it.kind === 'zoom') { zoomBy(it.factor, e.clientX, e.clientY); return; }
     flight++; touched = true;
-    view = pan(view, it.dx / k, it.dy / k);
+    live = pan(live, it.dx / kl, it.dy / kl);
   }
 
   // ---- drawing
@@ -306,9 +327,9 @@
   function tap(e: MouseEvent, direct?: string) {
     if (dragged) return;
     if (direct && e.detail === 0) { onselect(direct); return; } // keyboard or scripted activation
-    const r = svg.getBoundingClientRect();
+    const r = stage.getBoundingClientRect();
     const t = { x: e.clientX - r.left, y: e.clientY - r.top };
-    const pts = net.stations.map((s) => ({ id: s.id, x: (layout[s.id].x - view.x) * k, y: (layout[s.id].y - view.y) * k }));
+    const pts = net.stations.map((s) => ({ id: s.id, x: (layout[s.id].x - live.x) * kl, y: (layout[s.id].y - live.y) * kl }));
     const res = resolveTap(pts, t, REACH);
     if (res.kind === 'select') onselect(res.id);
     else if (res.kind === 'zoom') zoomBy(2.5, e.clientX, e.clientY);
@@ -347,15 +368,15 @@
     const b = { minX: Math.min(...ps.map((p) => p.x)), minY: Math.min(...ps.map((p) => p.y)),
                 maxX: Math.max(...ps.map((p) => p.x)), maxY: Math.max(...ps.map((p) => p.y)) };
     const goal = fit(b, size.w / size.h, 1.2);
-    const from = { ...view };
-    if (reduce) { view = goal; return; }
+    const from = { ...live };
+    if (reduce) { live = goal; return; }
     const t0 = performance.now();
     const me = ++flight;
     touched = true;
     const step = (t: number) => {
       if (me !== flight) return; // the player panned, zoomed or reset: their view wins
       const u = Math.min(1, (t - t0) / 650), e = 1 - Math.pow(1 - u, 3);
-      view = { x: from.x + (goal.x - from.x) * e, y: from.y + (goal.y - from.y) * e,
+      live = { x: from.x + (goal.x - from.x) * e, y: from.y + (goal.y - from.y) * e,
                w: from.w + (goal.w - from.w) * e, h: from.h + (goal.h - from.h) * e };
       if (u < 1) requestAnimationFrame(step);
     };
@@ -401,13 +422,17 @@
 
 <div class="wrap">
   {#if world && size.w > 1}
-    <Basemap {view} {size} {world} plain={plain || nameless} />
+    <Basemap view={live} {size} {world} plain={plain || nameless} />
   {/if}
   <!-- clicking empty map closes the stop card; keyboard users close it with Escape on a stop -->
   <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
-  <svg bind:this={svg} class="map" viewBox="{view.x} {view.y} {view.w} {view.h}" role="group" aria-label="Network map"
+  <!-- input lands on the stage, which never moves; the SVG inside slides and scales while the hand moves -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div bind:this={stage} class="stage" data-view="{live.x} {live.y} {live.w} {live.h}"
     onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={up} onwheel={wheel}
     onclick={(e) => tap(e)}>
+  <svg bind:this={svg} class="map" viewBox="{view.x} {view.y} {view.w} {view.h}" role="group" aria-label="Network map"
+    style:transform={shift}>
     {#if diagram && areas.bay}
       <!-- a calm background: striped water (Port Phillip, Western Port) and a faint Yarra -->
       <defs>
@@ -605,6 +630,7 @@
       {/key}
     {/if}
   </svg>
+  </div>
 
   <div class="zoom">
     <button type="button" class="zbtn" aria-label="Zoom in" onclick={() => zoomBy(1.6)}>
@@ -621,8 +647,9 @@
 
 <style>
   .wrap { position: relative; width: 100%; height: 100%; }
-  .map { position: relative; width: 100%; height: 100%; display: block; touch-action: none; user-select: none; cursor: grab; }
-  .map:active { cursor: grabbing; }
+  .stage { position: absolute; inset: 0; overflow: hidden; touch-action: none; user-select: none; cursor: grab; }
+  .stage:active { cursor: grabbing; }
+  .map { position: relative; width: 100%; height: 100%; display: block; transform-origin: 0 0; will-change: transform; }
   .tracks line { stroke-linecap: round; transition: opacity 150ms; }
   .water { fill: var(--water); stroke: none; }
   .water.waves { fill: url(#waves); }

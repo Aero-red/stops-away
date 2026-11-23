@@ -212,11 +212,11 @@ console.log(`day #${today}; target ${target.name} (from the engine)\n`);
   check('FEED', !!callout && /^(Warmer|Colder|Same) · \d+ stops$|^\d+ stops away$/.test(callout), `callout after the guess: "${callout}"`);
   // HIST: tapping an older history row lights that guess's lines and moves the map
   await p.ev(`document.querySelector('.history header button')?.click()`); await sleep(150); // show all rows
-  const vbBefore = await p.ev(`document.querySelector('svg.map').getAttribute('viewBox')`);
+  const vbBefore = await p.ev(`document.querySelector('.stage').dataset.view`);
   await p.ev(`[...document.querySelectorAll('.history .row')].at(-1).click()`); await sleep(900);
   const rowLines = (await p.ev(`[...[...document.querySelectorAll('.history .row')].at(-1).querySelectorAll('.chip')].map(c => c.dataset.line)`)) as string[];
   const litNow = (await p.ev(`[...new Set([...document.querySelectorAll('.tracks .on')].map(l => l.dataset.line))].sort()`)) as string[];
-  const vbAfter = await p.ev(`document.querySelector('svg.map').getAttribute('viewBox')`);
+  const vbAfter = await p.ev(`document.querySelector('.stage').dataset.view`);
   check('HIST', JSON.stringify(litNow) === JSON.stringify([...new Set(rowLines)].sort()) && vbAfter !== vbBefore
     && (await p.ev(`[...document.querySelectorAll('.history .row')].at(-1).getAttribute('aria-pressed')`)) === 'true',
     `tapping the first guess lights ${JSON.stringify(litNow)} (row says ${JSON.stringify(rowLines)}) and moves the map`);
@@ -445,9 +445,9 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   let pair: [typeof dots[0], typeof dots[0]] = [dots[0], dots[1]];
   for (let a = 0; a < dots.length; a++) for (let b = a + 1; b < dots.length; b++)
     if (Math.hypot(dots[a][1] - dots[b][1], dots[a][2] - dots[b][2]) < Math.hypot(pair[0][1] - pair[1][1], pair[0][2] - pair[1][2])) pair = [dots[a], dots[b]];
-  const vb0 = await p.ev(`document.querySelector('svg.map').getAttribute('viewBox')`);
+  const vb0 = await p.ev(`document.querySelector('.stage').dataset.view`);
   await click((pair[0][1] + pair[1][1]) / 2, (pair[0][2] + pair[1][2]) / 2);
-  const vb1 = await p.ev(`document.querySelector('svg.map').getAttribute('viewBox')`);
+  const vb1 = await p.ev(`document.querySelector('.stage').dataset.view`);
   const w0 = Number(vb0.split(' ')[2]), w1 = Number(vb1.split(' ')[2]);
   const opened = await p.ev(`!!document.querySelector('[role=dialog].card')`);
   check('MAP3', w1 < w0 / 2 && !opened, `tap between ${pair[0][0]} and ${pair[1][0]} zooms in (view width ${w0.toFixed(1)} → ${w1.toFixed(1)}) and opens no card`);
@@ -460,9 +460,9 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
 {
   const p = await openPage({});
   await p.go(); await clearSite(p); await p.reload();
-  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('svg.map'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.getAttribute('viewBox').split(' ').map(Number);
+  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('.stage'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.dataset.view.split(' ').map(Number);
     return [vx + (${x} - r.left) / r.width * vw, vy + (${y} - r.top) / r.height * vh, vw]; })()`) as Promise<number[]>;
-  const box = (await p.ev(`(() => { const r = document.querySelector('svg.map').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
+  const box = (await p.ev(`(() => { const r = document.querySelector('.stage').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
   const cx = box[0] + box[2] / 2, cy = box[1] + box[3] / 2;
   const scr = (a: number[], b: number[], i: number) => (b[i] - a[i]) / a[2] * box[2]; // map movement in screen px
   // a real Mac trackpad's wheel events (wheelDelta = -3 x delta); the test browser's own wheel input always looks like a mouse
@@ -486,15 +486,25 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const d0 = await under(cx, cy);
   await mouse('mousePressed', cx, cy, { buttons: 1, clickCount: 1 });
   for (let i = 1; i <= 10; i++) { await mouse('mouseMoved', cx - 10 * i, cy + 5 * i, { buttons: 1 }); await sleep(16); }
-  const grabbing = await p.ev(`getComputedStyle(document.querySelector('svg.map')).cursor`);
+  const grabbing = await p.ev(`getComputedStyle(document.querySelector('.stage')).cursor`);
   await sleep(150); await mouse('mouseReleased', cx - 100, cy + 50, { clickCount: 1 }); await sleep(200);
   const d1 = await under(cx - 100, cy + 50);
   const drag = Math.hypot(scr(d0, d1, 0), scr(d0, d1, 1));
-  const after = await p.ev(`getComputedStyle(document.querySelector('svg.map')).cursor`);
-  const ok = Math.abs(scroll.zoom - 1) < 0.01 && Math.abs(scroll.x - 120) < 3 && Math.abs(scroll.y - 160) < 3
+  const after = await p.ev(`getComputedStyle(document.querySelector('.stage')).cursor`);
+  // smoothness: while fingers scroll and pinch, the drawn map is only moved as a picture (no redraw of its
+  // stops and lines), then redrawn once when the hand rests, matching the live view
+  const smooth = (await p.ev(`(async () => { const s = document.querySelector('svg.map'), st = document.querySelector('.stage'), b = st.getBoundingClientRect();
+    let muts = 0; const mo = new MutationObserver((l) => { muts += l.filter(m => m.target !== s).length; }); mo.observe(s, { subtree: true, attributes: true, childList: true });
+    for (let i = 0; i < 6; i++) { for (const [dx, dy, ctrl] of [[3, 2, false], [0, -2, true]]) { const e = new WheelEvent('wheel', { deltaX: dx, deltaY: dy, ctrlKey: ctrl, clientX: b.left + b.width / 2, clientY: b.top + b.height / 2, bubbles: true, cancelable: true });
+      Object.defineProperty(e, 'wheelDeltaX', { value: -3 * dx }); Object.defineProperty(e, 'wheelDeltaY', { value: -3 * dy }); st.dispatchEvent(e); }
+      await new Promise(r => setTimeout(r, 16)); }
+    await new Promise(r => setTimeout(r, 0)); const during = muts, moving = getComputedStyle(s).transform !== 'none';
+    await new Promise(r => setTimeout(r, 400)); mo.disconnect();
+    return { during, moving, after: muts, settled: s.getAttribute('viewBox') === st.dataset.view && getComputedStyle(s).transform === 'none' }; })()`)) as { during: number; moving: boolean; after: number; settled: boolean };
+  const ok = smooth.during === 0 && smooth.moving && smooth.after > 0 && smooth.settled && Math.abs(scroll.zoom - 1) < 0.01 && Math.abs(scroll.x - 120) < 3 && Math.abs(scroll.y - 160) < 3
     && pinch.zoom > 2 && pinch.zoom < 3.5 && pinch.off < 3 && notch.zoom > 1.1 && notch.zoom < 1.25 && notch.off < 3
     && drag < 3 && grabbing === 'grabbing' && after === 'grab' && p.errors.length === 0;
-  check('DESK', ok, `trackpad scroll ${JSON.stringify(scroll)} (want zoom 1, 120, 160); pinch ×${pinch.zoom.toFixed(2)} off ${pinch.off.toFixed(1)} px; wheel notch ×${notch.zoom.toFixed(2)} off ${notch.off.toFixed(1)} px; drag ${drag.toFixed(1)} px off; cursor ${grabbing} then ${after}; errors ${p.errors.length}`);
+  check('DESK', ok, `trackpad scroll ${JSON.stringify(scroll)} (want zoom 1, 120, 160); pinch ×${pinch.zoom.toFixed(2)} off ${pinch.off.toFixed(1)} px; wheel notch ×${notch.zoom.toFixed(2)} off ${notch.off.toFixed(1)} px; drag ${drag.toFixed(1)} px off; cursor ${grabbing} then ${after}; while moving: ${smooth.during} map redraws, picture moved ${smooth.moving}; at rest redrawn ${smooth.after > 0}, matches ${smooth.settled}; errors ${p.errors.length}`);
   await p.close();
 }
 
@@ -503,12 +513,12 @@ for (const [id, mode] of [['H1', 'finished'], ['H2', 'untouched'], ['H3', 'in pr
   const p = await openPage({ phone: true });
   await p.go(); await clearSite(p); await p.reload();
   await p.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
-  // the map point under a screen point, from the live viewBox
-  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('svg.map'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.getAttribute('viewBox').split(' ').map(Number);
+  // the map point under a screen point, from the live view (the drawn SVG catches up when the hand rests)
+  const under = (x: number, y: number) => p.ev(`(() => { const s = document.querySelector('.stage'), r = s.getBoundingClientRect(), [vx, vy, vw, vh] = s.dataset.view.split(' ').map(Number);
     return [vx + (${x} - r.left) / r.width * vw, vy + (${y} - r.top) / r.height * vh, vw]; })()`) as Promise<number[]>;
   const touch = (type: string, pts: [number, number][], timestamp?: number) =>
     p.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map(([x, y], id) => ({ x, y, id })), ...(timestamp ? { timestamp } : {}) });
-  const box = (await p.ev(`(() => { const r = document.querySelector('svg.map').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
+  const box = (await p.ev(`(() => { const r = document.querySelector('.stage').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`)) as number[];
   const cx = box[0] + box[2] / 2, cy = box[1] + box[3] / 2;
   const off = (a: number[], b: number[]) => Math.hypot(a[0] - b[0], a[1] - b[1]) / a[2] * box[2]; // in screen px
   // one finger: drag 120 px left and 60 px down in small steps
